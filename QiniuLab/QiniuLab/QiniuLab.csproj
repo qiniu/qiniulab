@@ -186,6 +186,12 @@
   <ItemGroup>
     <Resource Include="qiniu.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Qiniu\Qiniu.csproj">
+      <Project>{340fb32c-dd04-47bc-94a8-10bb46e3daee}</Project>
+      <Name>Qiniu</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -23,5 +23,23 @@ namespace QiniuLab
         {
             InitializeComponent();
         }
+
+        private void UrlSafeBase64Encode_Click(object sender, RoutedEventArgs e)
+        {
+            string toEncodeString = this.ToEncodeStringTextBox.Text;
+            if (!string.IsNullOrEmpty(toEncodeString))
+            {
+                this.EncodedStringTextBox.Text = Qiniu.Util.StringUtils.urlSafeBase64Encode(toEncodeString);
+            }
+        }
+
+        private void UrlSafeBase64Decode_Click(object sender, RoutedEventArgs e)
+        {
+            string toDecodeString = this.ToDecodeStringTextBox.Text;
+            if (!string.IsNullOrEmpty(toDecodeString))
+            {
+                this.DecodedStringTextBox.Text = Qiniu.Util.StringUtils.urlsafeBase64Decode(toDecodeString);
+            }
+        }
     }
 }

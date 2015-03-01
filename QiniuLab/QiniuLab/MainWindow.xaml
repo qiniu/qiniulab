@@ -165,10 +165,10 @@
                         </Border>
                     </Grid>
                 </StackPanel>
-                
-                <StackPanel Grid.Column="2">
-                    <Frame x:Name="MainHostFrame"></Frame>
-                </StackPanel>
+
+                <DockPanel Grid.Column="2">
+                    <Frame x:Name="MainHostFrame" Background="WhiteSmoke"></Frame>
+                </DockPanel>
             </Grid>
             
         </StackPanel>
