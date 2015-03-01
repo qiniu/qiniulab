@@ -66,5 +66,15 @@ namespace Qiniu.Util
         {
             return Convert.ToBase64String(Encoding.UTF8.GetBytes(from)).Replace('+', '-').Replace('/', '_');
         }
+
+        /// <summary>
+        /// 解码Url安全的Base64编码值
+        /// </summary>
+        /// <param name="from">编码字符串</param>
+        /// <returns>已解码字符串</returns>
+        public static string urlsafeBase64Decode(string from)
+        {
+            return Encoding.UTF8.GetString(Convert.FromBase64String(from.Replace('-', '+').Replace('_', '/')));
+        }
     }
 }
