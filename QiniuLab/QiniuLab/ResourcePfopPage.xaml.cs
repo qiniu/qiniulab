@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -50,33 +51,48 @@ namespace QiniuLab
             bool force = this.ForceCheckBox.IsChecked.Value;
             string notifyURL = this.NotifyURLTextBox.Text.Trim();
 
-            Mac mac = new Mac(QiniuLab.AppSettings.Default.ACCESS_KEY,
-                QiniuLab.AppSettings.Default.SECRET_KEY);
-            Pfop pfop = new Pfop(mac, bucket, key, fops);
-            pfop.Pipeline = pipeline;
-            pfop.Force = force;
-            pfop.NotifyURL = notifyURL;
-            PfopResult pfopResult = pfop.pfop();
-            if (pfopResult.PersistentId != null)
+            Task.Factory.StartNew(() =>
             {
-                this.PersistentIdTextBox.Text = pfopResult.PersistentId;
-            }
-            this.PfopResponseTextBox.Text = pfopResult.Response;
-            this.PfopResponseInfoTextBox.Text = pfopResult.ResponseInfo.ToString();
+                Mac mac = new Mac(QiniuLab.AppSettings.Default.ACCESS_KEY,
+                    QiniuLab.AppSettings.Default.SECRET_KEY);
+                Pfop pfop = new Pfop(mac, bucket, key, fops);
+                pfop.Pipeline = pipeline;
+                pfop.Force = force;
+                pfop.NotifyURL = notifyURL;
+                PfopResult pfopResult = pfop.pfop();
+
+                Dispatcher.BeginInvoke((Action)(() =>
+                {
+                    if (pfopResult.PersistentId != null)
+                    {
+                        this.PersistentIdTextBox.Text = pfopResult.PersistentId;
+                    }
+
+                    this.PfopResponseTextBox.Text = pfopResult.Response;
+                    this.PfopResponseInfoTextBox.Text = pfopResult.ResponseInfo.ToString();
+                }));
+            });
         }
 
         private void PrefopButton_Click(object sender, RoutedEventArgs e)
         {
             string persistentId = this.PersistentIdTextBox.Text.Trim();
-            if (persistentId.Length == 0) {
+            if (persistentId.Length == 0)
+            {
                 return;
             }
-            Prefop prefop = new Prefop(persistentId);
-            PrefopResult result = prefop.prefop();
-            this.PrefopResponseTextBox.Text = result.Response;
-            this.PrefopResponseInfoTextBox.Text = result.ResponseInfo.ToString();
-            string formattedResponse = this.prefopResultTemplate.Replace("#{RESPONSE}#", result.Response);
-            this.PrefopFormatResponseWebBrowser.NavigateToString(formattedResponse);
+            Task.Factory.StartNew(() =>
+            {
+                Prefop prefop = new Prefop(persistentId);
+                PrefopResult result = prefop.prefop();
+                Dispatcher.BeginInvoke((Action)(() =>
+                {
+                    this.PrefopResponseTextBox.Text = result.Response;
+                    this.PrefopResponseInfoTextBox.Text = result.ResponseInfo.ToString();
+                    string formattedResponse = this.prefopResultTemplate.Replace("#{RESPONSE}#", result.Response);
+                    this.PrefopFormatResponseWebBrowser.NavigateToString(formattedResponse);
+                }));
+            });
         }
 
         private void OnPersistentId_Changed(object sender, TextChangedEventArgs e)

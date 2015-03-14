@@ -1,10 +1,13 @@
 ﻿using Microsoft.Win32;
+using Qiniu.Http;
 using Qiniu.Storage;
 using Qiniu.Util;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -22,10 +25,23 @@ namespace QiniuLab
     /// </summary>
     public partial class ResourceUploadPage : Page
     {
+        private string jsonResultTemplate;
+        private bool cancelUpload;
         public ResourceUploadPage()
         {
             InitializeComponent();
+            this.init();
+        }
+
+        private void init()
+        {
             this.UploadKeyTextBox.IsEnabled = false;
+            this.cancelUpload = false;
+            this.UploadProgressBar.Visibility = Visibility.Hidden;
+            using (StreamReader sr = new StreamReader("Template/JsonFormat.html"))
+            {
+                jsonResultTemplate = sr.ReadToEnd();
+            }
         }
 
         private void CreateTokenButton_Click(object sender, RoutedEventArgs e)
@@ -150,9 +166,93 @@ namespace QiniuLab
                 key = null;
             }
 
-            //upload file
-            UploadManager uploadManager = new UploadManager();
-        //   uploadManager.uploadFile(filePath,key,uploadToken,
+            if (!File.Exists(filePath))
+            {
+                return;
+            }
+
+            string mimeType = this.MimeTypeTextBox.Text.Trim();
+            bool checkCrc32 = false;
+            checkCrc32 = this.CheckCrc32CheckBox.IsChecked.Value;
+            if (mimeType.Length == 0)
+            {
+                mimeType = null;
+            }
+
+            string extraParamKey1 = this.ExtraParamKeyTextBox1.Text.Trim();
+            string extraParamValue1 = this.ExtraParamValueTextBox1.Text.Trim();
+            string extraParamKey2 = this.ExtraParamKeyTextBox2.Text.Trim();
+            string extraParamValue2 = this.ExtraParamValueTextBox2.Text.Trim();
+            string extraParamKey3 = this.ExtraParamKeyTextBox3.Text.Trim();
+            string extraParamValue3 = this.ExtraParamValueTextBox3.Text.Trim();
+
+            string recordDir = "temp";
+            string recordKey = null;
+
+            //update status
+            this.cancelUpload = false;
+            this.UploadProgressBar.Visibility = Visibility.Visible;
+            //start upload
+            Task.Factory.StartNew(() =>
+            {
+                string qetag = QETag.hash(filePath);
+                if (key == null)
+                {
+                    recordKey = StringUtils.urlSafeBase64Encode(qetag);
+                }
+                else
+                {
+                    recordKey = StringUtils.urlSafeBase64Encode(key + qetag);
+                }
+
+                UploadManager uploader = new UploadManager(new Qiniu.Storage.Persistent.ResumeRecorder(recordDir),
+                    new Qiniu.Storage.Persistent.KeyGenerator(delegate() { return recordKey; }));
+                Dictionary<string, string> extraParams = new Dictionary<string, string>();
+                if (!extraParams.ContainsKey(extraParamKey1))
+                {
+                    extraParams.Add(extraParamKey1, extraParamValue1);
+                }
+                if (!extraParams.ContainsKey(extraParamKey2))
+                {
+                    extraParams.Add(extraParamKey2, extraParamValue2);
+                }
+                if (!extraParams.ContainsKey(extraParamKey3))
+                {
+                    extraParams.Add(extraParamKey3, extraParamValue3);
+                }
+
+                UpProgressHandler upProgressHandler = new UpProgressHandler(delegate(string upKey, double percent)
+                {
+                    Dispatcher.BeginInvoke((Action)(() =>
+                    {
+                        this.UploadProgressBar.Value = (int)(percent * 100);
+                    }));
+                });
+                UpCancellationSignal upCancellationSignal = new UpCancellationSignal(delegate()
+                {
+                    return this.cancelUpload;
+                });
+                UpCompletionHandler upCompletionHandler = new UpCompletionHandler(delegate(string upKey, ResponseInfo respInfo, string response)
+                {
+                    Dispatcher.BeginInvoke((Action)(() =>
+                    {
+                        this.UploadResponseTextBox.Text = response;
+                        this.UploadResponseInfoTextBox.Text = respInfo.ToString();
+                        if (!string.IsNullOrEmpty(response))
+                        {
+                            string formattedResponse = this.jsonResultTemplate.Replace("#{RESPONSE}#", response);
+                            this.UploadFormatResponseWebBrowser.NavigateToString(formattedResponse);
+                        }
+                        else
+                        {
+                            this.UploadFormatResponseWebBrowser.NavigateToString("NO RESPONSE");
+                        }
+                        this.UploadProgressBar.Visibility = Visibility.Hidden;
+                    }));
+                });
+                UploadOptions uploadOptions = new UploadOptions(extraParams, mimeType, checkCrc32, upProgressHandler, upCancellationSignal);
+                uploader.uploadFile(filePath, key, uploadToken, uploadOptions, upCompletionHandler);
+            });
         }
 
         private void BrowseFileButton_Click(object sender, RoutedEventArgs e)
@@ -171,6 +271,9 @@ namespace QiniuLab
             this.UploadKeyTextBox.IsEnabled = this.EnableKeyCheckBox.IsChecked.Value;
         }
 
-        
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.cancelUpload = true;
+        }
     }
 }

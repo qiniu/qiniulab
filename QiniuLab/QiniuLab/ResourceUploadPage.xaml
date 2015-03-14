@@ -194,7 +194,7 @@
                                     <TextBox x:Name="MimeTypeTextBox" Margin="6" Width="500" VerticalAlignment="Center"></TextBox>
                                 </StackPanel>
                                 <StackPanel Grid.Row="1" Orientation="Horizontal">
-                                    <CheckBox Content="启用CRC32校验" Margin="6" VerticalAlignment="Center"></CheckBox>
+                                    <CheckBox x:Name="CheckCrc32CheckBox" Content="启用CRC32校验" Margin="6" VerticalAlignment="Center"></CheckBox>
                                 </StackPanel>
                                 <StackPanel Grid.Row="2">
                                     <GroupBox Header="扩展参数">
@@ -230,10 +230,14 @@
                 </TabItem>
             </TabControl>
         </GroupBox>
-        <StackPanel HorizontalAlignment="Left" Orientation="Vertical">
-            <ProgressBar x:Name="UploadProgressBar" Width="750" Height="6" Margin="5" Visibility="Visible"></ProgressBar>
-            <Button Content="上传" Width="100" Height="30" HorizontalAlignment="Left" 
-                            Margin="5" Grid.Column="0" Click="UploadButton_Click"></Button>
+        <StackPanel HorizontalAlignment="Left" Orientation="Vertical" Width="750">
+            <StackPanel Orientation="Horizontal">
+                <ProgressBar x:Name="UploadProgressBar" Width="520" Height="6" Margin="5" Visibility="Visible"></ProgressBar>
+                <Button Content="上传" Width="100" Height="30" HorizontalAlignment="Left" 
+                                Margin="5" Grid.Column="0" Click="UploadButton_Click"></Button>
+                <Button Content="取消" Width="100" Height="30" HorizontalAlignment="Left" 
+                                Margin="5" Grid.Column="0" Click="CancelButton_Click"></Button>
+            </StackPanel>
         </StackPanel>
         <GroupBox Header="上传回复" Margin="6">
             <TabControl Margin="6">
