@@ -32,6 +32,7 @@ namespace QiniuLab
         public MainWindow()
         {
             InitializeComponent();
+            this.WindowState = WindowState.Maximized;
         }
 
         private void Nav_MouseEnter(object sender, MouseEventArgs e)

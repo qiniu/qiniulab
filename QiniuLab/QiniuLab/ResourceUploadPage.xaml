@@ -4,15 +4,249 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
-	Title="ResourceUploadPage">
+      d:DesignHeight="800" d:DesignWidth="1000"
+	  Title="文件上传">
+    <StackPanel Width="750" HorizontalAlignment="Left">
+        <GroupBox Header="上传请求" Margin="6">
+            <TabControl Margin="6">
+                <TabItem Header="上传策略">
+                    <StackPanel>
+                        <TabControl Margin="6">
+                            <TabItem Header="基本设置">
+                                <GroupBox  Margin="5">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"></RowDefinition>
+                                            <RowDefinition Height="*"></RowDefinition>
+                                            <RowDefinition Height="*"></RowDefinition>
+                                            <RowDefinition Height="*"></RowDefinition>
+                                            <RowDefinition Height="*"></RowDefinition>
+                                            <RowDefinition Height="*"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <StackPanel Grid.Row="0" Orientation="Horizontal">
+                                            <TextBlock Text="Scope (*)" Width="120" Margin="5" VerticalAlignment="Center" Foreground="Red"></TextBlock>
+                                            <TextBox x:Name="ScopeTextBox" Width="500" Margin="5" VerticalAlignment="Center"></TextBox>
+                                        </StackPanel>
+                                        <StackPanel Grid.Row="1" Orientation="Horizontal">
+                                            <TextBlock Text="Expire (*)" Width="120" Margin="5" VerticalAlignment="Center" Foreground="Red"></TextBlock>
+                                            <TextBox x:Name="ExpireTextBox" Width="300" Margin="5" VerticalAlignment="Center"></TextBox>
+                                            <Label Content="秒" Margin="5" VerticalAlignment="Center"></Label>
+                                        </StackPanel>
+                                        <StackPanel Grid.Row="2" Orientation="Horizontal">
+                                            <TextBlock Text="InsertOnly" Width="120" Margin="5" VerticalAlignment="Center"></TextBlock>
+                                            <CheckBox x:Name="InsertOnlyCheckBox" Margin="5" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Row="3" Orientation="Horizontal">
+                                            <TextBlock Text="SaveKey" Width="120" Margin="5" VerticalAlignment="Center"></TextBlock>
+                                            <TextBox x:Name="SaveKeyTextBox" Width="500" Margin="5" VerticalAlignment="Center"></TextBox>
+                                        </StackPanel>
+                                        <StackPanel Grid.Row="4" Orientation="Horizontal">
+                                            <TextBlock Text="EndUser" Width="120" Margin="5" VerticalAlignment="Center"></TextBlock>
+                                            <TextBox x:Name="EndUserTextBox" Width="500" Margin="5" VerticalAlignment="Center"></TextBox>
+                                        </StackPanel>
+                                        <StackPanel Grid.Row="5" Orientation="Horizontal">
+                                            <TextBlock Text="ReturnBody" Width="120" Margin="5" VerticalAlignment="Top"></TextBlock>
+                                            <TextBox x:Name="ReturnBodyTextBox" Width="500" Height="80" TextWrapping="Wrap"  
+                                     VerticalScrollBarVisibility="Auto"
+                                     Margin="5" VerticalAlignment="Center"></TextBox>
+                                        </StackPanel>
+                                    </Grid>
+                                </GroupBox>
+                            </TabItem>
+                            <TabItem Header="回调设置">
+                                <GroupBox  Margin="5">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"></RowDefinition>
+                                            <RowDefinition Height="*"></RowDefinition>
+                                            <RowDefinition Height="*"></RowDefinition>
+                                            <RowDefinition Height="*"></RowDefinition>
+                                            <RowDefinition Height="*"></RowDefinition>
+                                            <RowDefinition Height="*"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <StackPanel Grid.Row="0" Orientation="Horizontal">
+                                            <TextBlock Text="CallbackUrl" Width="120" Margin="5" VerticalAlignment="Center"></TextBlock>
+                                            <TextBox x:Name="CallbackUrlTextBox" Width="500" Margin="5" VerticalAlignment="Center"></TextBox>
+                                        </StackPanel>
+                                        <StackPanel Grid.Row="1" Orientation="Horizontal">
+                                            <TextBlock Text="CallbackHost" Width="120" Margin="5" VerticalAlignment="Center"></TextBlock>
+                                            <TextBox x:Name="CallbackHostTextBox" Width="500" Margin="5" VerticalAlignment="Center"></TextBox>
+                                        </StackPanel>
+                                        <StackPanel Grid.Row="2" Orientation="Horizontal">
+                                            <TextBlock Text="CallbackBodyType" Width="120" Margin="5" VerticalAlignment="Center"></TextBlock>
+                                            <ComboBox x:Name="CallbackBodyTypeComboBox" Width="500" Margin="5" VerticalAlignment="Center">
+                                                <ComboBoxItem>application/json</ComboBoxItem>
+                                                <ComboBoxItem>application/x-www-form-urlencoded</ComboBoxItem>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel Grid.Row="3" Orientation="Horizontal">
+                                            <TextBlock Text="CallbackBody" Width="120" Margin="5" VerticalAlignment="Top"></TextBlock>
+                                            <TextBox x:Name="CallbackBodyTextBox" Width="500" Height="80" TextWrapping="Wrap"  
+                                     VerticalScrollBarVisibility="Auto"
+                                     Margin="5" VerticalAlignment="Center"></TextBox>
+                                        </StackPanel>
+                                        <StackPanel Grid.Row="4" Orientation="Horizontal">
+                                            <TextBlock Text="CallbackFetchKey" Width="120" Margin="5" VerticalAlignment="Center"></TextBlock>
+                                            <CheckBox x:Name="CallbackFetchKeyCheckBox" Margin="5" VerticalAlignment="Center"></CheckBox>
+                                        </StackPanel>
+                                    </Grid>
+                                </GroupBox>
+                            </TabItem>
+                            <TabItem  Header="持久化设置">
+                                <GroupBox  Margin="5">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"></RowDefinition>
+                                            <RowDefinition Height="*"></RowDefinition>
+                                            <RowDefinition Height="*"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <StackPanel Grid.Row="0" Orientation="Horizontal">
+                                            <TextBlock Text="PersistentOps" Width="120" Margin="5" VerticalAlignment="Top"></TextBlock>
+                                            <TextBox x:Name="PersistentOpsTextBox"  Width="500" Height="80" TextWrapping="Wrap"  
+                                     VerticalScrollBarVisibility="Auto"
+                                     Margin="5" VerticalAlignment="Center"></TextBox>
+                                        </StackPanel>
+                                        <StackPanel Grid.Row="1" Orientation="Horizontal">
+                                            <TextBlock Text="PersistentPipeline" Width="120" Margin="5" VerticalAlignment="Center"></TextBlock>
+                                            <TextBox x:Name="PersistentPipelineTextBox" Width="500" Margin="5" VerticalAlignment="Center"></TextBox>
+                                        </StackPanel>
 
-    <Grid>
+                                        <StackPanel Grid.Row="2" Orientation="Horizontal">
+                                            <TextBlock Text="PersistentNotifyUrl" Width="120" Margin="5" VerticalAlignment="Center"></TextBlock>
+                                            <TextBox x:Name="PersistentNotifyUrlTextBox" Width="500" Margin="5" VerticalAlignment="Center"></TextBox>
+                                        </StackPanel>
+                                    </Grid>
+                                </GroupBox>
+                            </TabItem>
+                            <TabItem Header="其他设置">
+                                <GroupBox  Margin="5" >
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"></RowDefinition>
+                                            <RowDefinition Height="*"></RowDefinition>
+                                            <RowDefinition Height="*"></RowDefinition>
+                                        </Grid.RowDefinitions>
 
-        <TabControl>
-            <TabItem>
-                upload
-            </TabItem>
-        </TabControl>
-    </Grid>
+                                        <StackPanel Grid.Row="0" Orientation="Horizontal">
+                                            <TextBlock Text="FsizeLimit" Width="120" Margin="5" VerticalAlignment="Center"></TextBlock>
+                                            <TextBox x:Name="FsizeLimitTextBox" Width="500" Margin="5" VerticalAlignment="Center"></TextBox>
+                                        </StackPanel>
+                                        <StackPanel Grid.Row="1" Orientation="Horizontal">
+                                            <TextBlock Text="MimeLimit" Width="120" Margin="5" VerticalAlignment="Center"></TextBlock>
+                                            <TextBox x:Name="MimeLimitTextBox" Width="500" Margin="5" VerticalAlignment="Center"></TextBox>
+                                        </StackPanel>
+                                        <StackPanel Grid.Row="2" Orientation="Horizontal">
+                                            <TextBlock Text="DetectMime" Width="120" Margin="5" VerticalAlignment="Center"></TextBlock>
+                                            <CheckBox x:Name="DetectMimeCheckBox" Margin="5" VerticalAlignment="Center"></CheckBox>
+                                        </StackPanel>
+                                    </Grid>
+                                </GroupBox>
+                            </TabItem>
+                        </TabControl>
+                        <StackPanel HorizontalAlignment="Left">
+                            <Button Content="生成凭证" Width="100" Height="25" HorizontalAlignment="Right" 
+                            Margin="5" Grid.Column="0" Click="CreateTokenButton_Click"></Button>
+                        </StackPanel>
+                    </StackPanel>
+
+                </TabItem>
+                <TabItem Header="客户端参数">
+                    <TabControl Margin="6">
+                        <TabItem Header="基本参数">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
+
+                                <StackPanel Grid.Row="0" Orientation="Horizontal">
+                                    <TextBlock Text="Token (*)" Width="120" Margin="5" VerticalAlignment="Top" Foreground="Red"></TextBlock>
+                                    <TextBox x:Name="UploadTokenTextBox" TextWrapping="Wrap" 
+                                          Width="500" Height="100"
+                                        VerticalScrollBarVisibility="Auto" Margin="5"
+                                        IsReadOnly="True"></TextBox>
+                                </StackPanel>
+                                <StackPanel Grid.Row="1" Orientation="Horizontal">
+                                    <TextBlock Text="File (*)" Width="120"  Margin="5" VerticalAlignment="Center" Foreground="Red"></TextBlock>
+                                    <TextBox x:Name="UploadFileTextBox" Width="420" Margin="5" IsReadOnly="True"></TextBox>
+                                    <Button Content="浏览" Width="54" Height="20" Click="BrowseFileButton_Click"></Button>
+                                </StackPanel>
+                                <StackPanel Grid.Row="2" Orientation="Horizontal">
+                                    <TextBlock Text="Key" Width="120"  Margin="5" VerticalAlignment="Center"></TextBlock>
+                                    <TextBox x:Name="UploadKeyTextBox" Width="420" Margin="5"></TextBox>
+                                    <CheckBox x:Name="EnableKeyCheckBox" Content="启用Key" VerticalAlignment="Center"
+                                         Unchecked="EnableKeyCheckBox_Change"
+                                          Checked="EnableKeyCheckBox_Change"
+                                          ></CheckBox>
+                                </StackPanel>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="可选参数">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <StackPanel Grid.Row="0" Orientation="Horizontal">
+                                    <TextBlock Text="MimeType" Margin="6" Width="120" VerticalAlignment="Center"></TextBlock>
+                                    <TextBox x:Name="MimeTypeTextBox" Margin="6" Width="500" VerticalAlignment="Center"></TextBox>
+                                </StackPanel>
+                                <StackPanel Grid.Row="1" Orientation="Horizontal">
+                                    <CheckBox Content="启用CRC32校验" Margin="6" VerticalAlignment="Center"></CheckBox>
+                                </StackPanel>
+                                <StackPanel Grid.Row="2">
+                                    <GroupBox Header="扩展参数">
+                                        <Grid Margin="6">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <StackPanel Grid.Row="0" Orientation="Horizontal">
+                                                <TextBlock Width="200" Text="参数名" Margin="6"></TextBlock>
+                                                <TextBlock Width="200" Text="参数值" Margin="6"></TextBlock>
+                                            </StackPanel>
+                                            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                                                <TextBox x:Name="ExtraParamKeyTextBox1" Width="200" Margin="6"></TextBox>
+                                                <TextBox x:Name="ExtraParamValueTextBox1" Width="200" Margin="6"></TextBox>
+                                            </StackPanel>
+                                            <StackPanel Grid.Row="2" Orientation="Horizontal">
+                                                <TextBox x:Name="ExtraParamKeyTextBox2" Width="200" Margin="6"></TextBox>
+                                                <TextBox x:Name="ExtraParamValueTextBox2" Width="200" Margin="6"></TextBox>
+                                            </StackPanel>
+                                            <StackPanel Grid.Row="3" Orientation="Horizontal">
+                                                <TextBox x:Name="ExtraParamKeyTextBox3" Width="200" Margin="6"></TextBox>
+                                                <TextBox x:Name="ExtraParamValueTextBox3" Width="200" Margin="6"></TextBox>
+                                            </StackPanel>
+                                        </Grid>
+                                    </GroupBox>
+                                </StackPanel>
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
+                </TabItem>
+            </TabControl>
+        </GroupBox>
+        <StackPanel HorizontalAlignment="Left" Orientation="Vertical">
+            <ProgressBar x:Name="UploadProgressBar" Width="750" Height="6" Margin="5" Visibility="Visible"></ProgressBar>
+            <Button Content="上传" Width="100" Height="30" HorizontalAlignment="Left" 
+                            Margin="5" Grid.Column="0" Click="UploadButton_Click"></Button>
+        </StackPanel>
+        <GroupBox Header="上传回复" Margin="6">
+            <TabControl Margin="6">
+                <TabItem Header="内容">
+                    <TextBox x:Name="UploadResponseTextBox" Height="200" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
+                </TabItem>
+                <TabItem Header="格式化" Height="23" VerticalAlignment="Top">
+                    <WebBrowser x:Name="UploadFormatResponseWebBrowser" MinHeight="200"></WebBrowser>
+                </TabItem>
+                <TabItem Header="信息">
+                    <TextBox x:Name="UploadResponseInfoTextBox" Height="200" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
+                </TabItem>
+            </TabControl>
+        </GroupBox>
+    </StackPanel>
 </Page>

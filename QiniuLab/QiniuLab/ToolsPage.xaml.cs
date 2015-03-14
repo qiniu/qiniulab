@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using Qiniu.Util;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -40,6 +43,62 @@ namespace QiniuLab
             {
                 this.DecodedStringTextBox.Text = Qiniu.Util.StringUtils.urlsafeBase64Decode(toDecodeString);
             }
+        }
+
+        private void BrowseQETagSourceFileButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            if (dlg.ShowDialog() == true)
+            {
+                this.QETagSourceFileTextBox.Text = dlg.FileName;
+            }
+        }
+
+        private void CalcQETagButton_Click(object sender, RoutedEventArgs e)
+        {
+            string fileName = this.QETagSourceFileTextBox.Text;
+            if (File.Exists(fileName))
+            {
+                try
+                {
+                    string qetag = QETag.hash(fileName);
+                    this.QETagResultTextBox.Text = qetag;
+                }
+                catch (Exception) { }
+            }
+        }
+
+        private void BrowseCRC32SourceFileButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            if (dlg.ShowDialog() == true)
+            {
+                this.CRC32SourceFileTextBox.Text = dlg.FileName;
+            }
+        }
+
+        private void CalcCRC32Button_Click(object sender, RoutedEventArgs e)
+        {
+            string fileName = this.CRC32SourceFileTextBox.Text;
+            if (File.Exists(fileName))
+            {
+                try
+                {
+                    string crc32 = CRC32.CheckSumFile(fileName).ToString();
+                    this.CRC32ResultTextBox.Text = crc32;
+                }
+                catch (Exception) { }
+            }
+        }
+
+        private void CRC32SourceFileTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            this.CRC32ResultTextBox.Text = "";
+        }
+
+        private void QETagSourceFileTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            this.QETagResultTextBox.Text = "";
         }
     }
 }

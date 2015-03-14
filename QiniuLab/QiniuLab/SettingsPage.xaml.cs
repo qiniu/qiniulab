@@ -22,6 +22,15 @@ namespace QiniuLab
         public SettingsPage()
         {
             InitializeComponent();
+            this.AccessKeyTextBox.Text = QiniuLab.AppSettings.Default.ACCESS_KEY;
+            this.SecretKeyTextBox.Text = QiniuLab.AppSettings.Default.SECRET_KEY;
+        }
+
+        private void SaveSettingsButton_Click(object sender, RoutedEventArgs e)
+        {
+            QiniuLab.AppSettings.Default.ACCESS_KEY = this.AccessKeyTextBox.Text.Trim();
+            QiniuLab.AppSettings.Default.SECRET_KEY = this.SecretKeyTextBox.Text.Trim();
+            QiniuLab.AppSettings.Default.Save();
         }
     }
 }

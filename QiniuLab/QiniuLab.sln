@@ -3,22 +3,22 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QiniuLab", "QiniuLab\QiniuLab.csproj", "{42DA9C7E-CA75-443B-A84A-CA8DE4053D0D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qiniu", "Qiniu\Qiniu.csproj", "{340FB32C-DD04-47BC-94A8-10BB46E3DAEE}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{42DA9C7E-CA75-443B-A84A-CA8DE4053D0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{42DA9C7E-CA75-443B-A84A-CA8DE4053D0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42DA9C7E-CA75-443B-A84A-CA8DE4053D0D}.Debug|x86.ActiveCfg = Debug|x86
+		{42DA9C7E-CA75-443B-A84A-CA8DE4053D0D}.Debug|x86.Build.0 = Debug|x86
 		{42DA9C7E-CA75-443B-A84A-CA8DE4053D0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42DA9C7E-CA75-443B-A84A-CA8DE4053D0D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{340FB32C-DD04-47BC-94A8-10BB46E3DAEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{340FB32C-DD04-47BC-94A8-10BB46E3DAEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{340FB32C-DD04-47BC-94A8-10BB46E3DAEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{340FB32C-DD04-47BC-94A8-10BB46E3DAEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42DA9C7E-CA75-443B-A84A-CA8DE4053D0D}.Release|x86.ActiveCfg = Release|x86
+		{42DA9C7E-CA75-443B-A84A-CA8DE4053D0D}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

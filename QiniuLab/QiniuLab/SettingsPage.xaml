@@ -4,14 +4,33 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
+      d:DesignHeight="600" d:DesignWidth="800"
 	Title="SettingsPage">
 
-    <Grid>
-        <TabControl>
-            <TabItem>
-                settings
-            </TabItem>
-        </TabControl>
-    </Grid>
+    <StackPanel>
+        <GroupBox Header="帐号设置" Width="420" HorizontalAlignment="Left" Margin="6">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="6">
+                    <TextBlock Text="Access Key" Width="80"></TextBlock>
+                    <TextBox  x:Name="AccessKeyTextBox"  Width="320"></TextBox>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="6">
+                    <TextBlock Text="Secret Key" Width="80"></TextBlock>
+                    <TextBox  x:Name="SecretKeyTextBox"  Width="320"></TextBox>
+                </StackPanel>
+                <StackPanel Grid.Row="2">
+                    <Button Content="保存" Width="100" 
+                            HorizontalAlignment="Right"
+                            Click="SaveSettingsButton_Click"
+                            ></Button>
+                </StackPanel>
+            </Grid>
+            
+        </GroupBox>
+    </StackPanel>
 </Page>

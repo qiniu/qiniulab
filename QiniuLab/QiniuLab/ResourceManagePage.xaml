@@ -4,14 +4,346 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
-	Title="ResourceManagePage">
+      d:DesignHeight="600" d:DesignWidth="800"
+	Title="资源管理">
 
     <Grid>
         <TabControl>
-            <TabItem>
-                resource manage
+            <TabItem Header="获取资源信息">
+                <StackPanel Margin="6" Width="500" HorizontalAlignment="Left">
+                    <GroupBox Header="请求" Margin="6">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="6">
+                                <TextBlock Text="Bucket (*)" Foreground="Red" Width="100"></TextBlock>
+                                <TextBox x:Name="StatBucketTextBox" Width="300"></TextBox>
+                            </StackPanel>
+                            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="6">
+                                <TextBlock Text="Key (*)" Foreground="Red" Width="100"></TextBlock>
+                                <TextBox x:Name="StatKeyTextBox" Width="300"></TextBox>
+                            </StackPanel>
+                            <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="6">
+                                <Button Content="Stat" Width="60" Click="StatButton_Click" Margin="0 6"></Button>
+                                <Button Content="Cmd" Width="60" Click="StatCmdButton_Click" Margin="6"></Button>
+                                <TextBox x:Name="StatCmdResultTextBox" Width="261" Margin="6" IsReadOnly="True"></TextBox>
+                            </StackPanel>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="回复" Margin="6">
+                        <TabControl Margin="6">
+                            <TabItem Header="内容">
+                                <TextBox x:Name="StatResponseTextBox" MaxHeight="300" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
+                            </TabItem>
+                            <TabItem Header="格式化">
+                                <WebBrowser x:Name="StatFormatResponseWebBrowser"></WebBrowser>
+                            </TabItem>
+                            <TabItem Header="信息">
+                                <TextBox x:Name="StatResponseInfoTextBox" MaxHeight="300" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
+                            </TabItem>
+                        </TabControl>
+                    </GroupBox>
+                </StackPanel>
             </TabItem>
+            <TabItem Header="复制资源">
+                <StackPanel Margin="6" Width="500" HorizontalAlignment="Left">
+                    <GroupBox Header="请求" Margin="6">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="6">
+                                <TextBlock Text="Src Bucket (*)" Foreground="Red" Width="100"></TextBlock>
+                                <TextBox x:Name="CopySrcBucketTextBox" Width="300"></TextBox>
+                            </StackPanel>
+                            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="6">
+                                <TextBlock Text="Src Key (*)" Foreground="Red" Width="100"></TextBlock>
+                                <TextBox x:Name="CopySrcKeyTextBox" Width="300"></TextBox>
+                            </StackPanel>
+                            <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="6">
+                                <TextBlock Text="Dest Bucket (*)" Foreground="Red" Width="100"></TextBlock>
+                                <TextBox x:Name="CopyDestBucketTextBox" Width="300"></TextBox>
+                            </StackPanel>
+                            <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="6">
+                                <TextBlock Text="Dest Key (*)" Foreground="Red" Width="100"></TextBlock>
+                                <TextBox x:Name="CopyDestKeyTextBox" Width="300"></TextBox>
+                            </StackPanel>
+                            <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="6">
+                                <Button Content="Copy" Width="60" Click="CopyButton_Click" Margin="0 6"></Button>
+                                <Button Content="Cmd" Width="60" Click="CopyCmdButton_Click" Margin="6"></Button>
+                                <TextBox x:Name="CopyCmdResultTextBox" Width="261" Margin="6" IsReadOnly="True"></TextBox>
+                            </StackPanel>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="回复" Margin="6">
+                        <TabControl Margin="6">
+                            <TabItem Header="内容">
+                                <TextBox x:Name="CopyResponseTextBox" MaxHeight="300" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
+                            </TabItem>
+                            <TabItem Header="格式化">
+                                <WebBrowser x:Name="CopyFormatResponseWebBrowser"></WebBrowser>
+                            </TabItem>
+                            <TabItem Header="信息">
+                                <TextBox x:Name="CopyResponseInfoTextBox" MaxHeight="300" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
+                            </TabItem>
+                        </TabControl>
+                    </GroupBox>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="移动资源">
+                <StackPanel Margin="6" Width="500" HorizontalAlignment="Left">
+                    <GroupBox Header="请求" Margin="6">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="6">
+                                <TextBlock Text="Src Bucket (*)" Foreground="Red" Width="100"></TextBlock>
+                                <TextBox x:Name="MoveSrcBucketTextBox" Width="300"></TextBox>
+                            </StackPanel>
+                            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="6">
+                                <TextBlock Text="Src Key (*)" Foreground="Red" Width="100"></TextBlock>
+                                <TextBox x:Name="MoveSrcKeyTextBox" Width="300"></TextBox>
+                            </StackPanel>
+                            <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="6">
+                                <TextBlock Text="Dest Bucket (*)" Foreground="Red" Width="100"></TextBlock>
+                                <TextBox x:Name="MoveDestBucketTextBox" Width="300"></TextBox>
+                            </StackPanel>
+                            <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="6">
+                                <TextBlock Text="Dest Key (*)" Foreground="Red" Width="100"></TextBlock>
+                                <TextBox x:Name="MoveDestKeyTextBox" Width="300"></TextBox>
+                            </StackPanel>
+                            <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="6">
+                                <Button Content="Move" Width="60" Click="MoveButton_Click" Margin="0 6"></Button>
+                                <Button Content="Cmd" Width="60" Click="MoveCmdButton_Click" Margin="6"></Button>
+                                <TextBox x:Name="MoveCmdResultTextBox" Width="261" Margin="6" IsReadOnly="True"></TextBox>
+                            </StackPanel>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="回复" Margin="6">
+                        <TabControl Margin="6">
+                            <TabItem Header="内容">
+                                <TextBox x:Name="MoveResponseTextBox" MaxHeight="300" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
+                            </TabItem>
+                            <TabItem Header="格式化">
+                                <WebBrowser x:Name="MoveFormatResponseWebBrowser"></WebBrowser>
+                            </TabItem>
+                            <TabItem Header="信息">
+                                <TextBox x:Name="MoveResponseInfoTextBox" MaxHeight="300" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
+                            </TabItem>
+                        </TabControl>
+                    </GroupBox>
+                </StackPanel>
+            </TabItem>   
+            <TabItem Header="删除资源">
+                <StackPanel Margin="6" Width="500" HorizontalAlignment="Left">
+                    <GroupBox Header="请求" Margin="6">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="6">
+                                <TextBlock Text="Bucket (*)" Foreground="Red" Width="100"></TextBlock>
+                                <TextBox x:Name="DeleteBucketTextBox" Width="300"></TextBox>
+                            </StackPanel>
+                            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="6">
+                                <TextBlock Text="Key (*)" Foreground="Red" Width="100"></TextBlock>
+                                <TextBox x:Name="DeleteKeyTextBox" Width="300"></TextBox>
+                            </StackPanel>
+                            <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="6">
+                                <Button Content="Delete" Width="60" Click="DeleteButton_Click" Margin="0 6"></Button>
+                                <Button Content="Cmd" Width="60" Click="DeleteCmdButton_Click" Margin="6"></Button>
+                                <TextBox x:Name="DeleteCmdResultTextBox" Width="261" Margin="6" IsReadOnly="True"></TextBox>
+                            </StackPanel>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="回复" Margin="6">
+                        <TabControl Margin="6">
+                            <TabItem Header="内容">
+                                <TextBox x:Name="DeleteResponseTextBox" MaxHeight="300" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
+                            </TabItem>
+                            <TabItem Header="格式化">
+                                <WebBrowser x:Name="DeleteFormatResponseWebBrowser"></WebBrowser>
+                            </TabItem>
+                            <TabItem Header="信息">
+                                <TextBox x:Name="DeleteResponseInfoTextBox" MaxHeight="300" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
+                            </TabItem>
+                        </TabControl>
+                    </GroupBox>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="修改元信息">
+                <StackPanel Margin="6" Width="500" HorizontalAlignment="Left">
+                    <GroupBox Header="请求" Margin="6">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="6">
+                                <TextBlock Text="Bucket (*)" Foreground="Red" Width="100"></TextBlock>
+                                <TextBox x:Name="ChgmBucketTextBox" Width="300"></TextBox>
+                            </StackPanel>
+                            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="6">
+                                <TextBlock Text="Key (*)" Foreground="Red" Width="100"></TextBlock>
+                                <TextBox x:Name="ChgmKeyTextBox" Width="300"></TextBox>
+                            </StackPanel>
+                            <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="6">
+                                <TextBlock Text="Mime Type (*)" Foreground="Red" Width="100"></TextBlock>
+                                <TextBox x:Name="ChgmMimeTypeTextBox" Width="300"></TextBox>
+                            </StackPanel>
+                            <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="6">
+                                <Button Content="Chgm" Width="60" Click="ChgmButton_Click" Margin="0 6"></Button>
+                                <Button Content="Cmd" Width="60" Click="ChgmCmdButton_Click" Margin="6"></Button>
+                                <TextBox x:Name="ChgmCmdResultTextBox" Width="261" Margin="6" IsReadOnly="True"></TextBox>
+                            </StackPanel>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="回复" Margin="6">
+                        <TabControl Margin="6">
+                            <TabItem Header="内容">
+                                <TextBox x:Name="ChgmResponseTextBox" MaxHeight="300" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
+                            </TabItem>
+                            <TabItem Header="格式化">
+                                <WebBrowser x:Name="ChgmFormatResponseWebBrowser"></WebBrowser>
+                            </TabItem>
+                            <TabItem Header="信息">
+                                <TextBox x:Name="ChgmResponseInfoTextBox" MaxHeight="300" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
+                            </TabItem>
+                        </TabControl>
+                    </GroupBox>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="批量管理资源">
+                <StackPanel Margin="6" Width="600" HorizontalAlignment="Left">
+                    <GroupBox Header="请求" Margin="6">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="6">
+                                <TextBlock Text="Batch Ops (*)" Foreground="Red" Width="100"></TextBlock>
+                                <TextBox x:Name="BatchOpsTextBox" Width="450" Height="200" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"></TextBox>
+                            </StackPanel>
+                            <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="6">
+                                <Button Content="Batch" Width="60" Click="BatchButton_Click"></Button>
+                            </StackPanel>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="回复" Margin="6">
+                        <TabControl Margin="6">
+                            <TabItem Header="内容">
+                                <TextBox x:Name="BatchResponseTextBox" MinHeight="300" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
+                            </TabItem>
+                            <TabItem Header="格式化">
+                                <WebBrowser x:Name="BatchFormatResponseWebBrowser" MinHeight="300"></WebBrowser>
+                            </TabItem>
+                            <TabItem Header="信息">
+                                <TextBox x:Name="BatchResponseInfoTextBox" MinHeight="300" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
+                            </TabItem>
+                        </TabControl>
+                    </GroupBox>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="抓取资源">
+                <StackPanel Margin="6" Width="500" HorizontalAlignment="Left">
+                    <GroupBox Header="请求" Margin="6">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="6">
+                                <TextBlock Text="Url (*)" Foreground="Red" Width="100"></TextBlock>
+                                <TextBox x:Name="FetchUrlTextBox" Width="300" Height="100" TextWrapping="Wrap" 
+                                         VerticalScrollBarVisibility="Auto"></TextBox>
+                            </StackPanel>
+                            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="6">
+                                <TextBlock Text="Bucket (*)" Foreground="Red" Width="100"></TextBlock>
+                                <TextBox x:Name="FetchBucketTextBox" Width="300"></TextBox>
+                            </StackPanel>
+                            <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="6">
+                                <TextBlock Text="Key" Width="100"></TextBlock>
+                                <TextBox x:Name="FetchKeyTextBox" Width="300"></TextBox>
+                            </StackPanel>
+                            <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="6">
+                                <Button Content="Fetch" Width="60" Click="FetchButton_Click"></Button>
+                            </StackPanel>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="回复" Margin="6">
+                        <TabControl Margin="6">
+                            <TabItem Header="内容">
+                                <TextBox x:Name="FetchResponseTextBox" MaxHeight="300" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
+                            </TabItem>
+                            <TabItem Header="格式化">
+                                <WebBrowser x:Name="FetchFormatResponseWebBrowser"></WebBrowser>
+                            </TabItem>
+                            <TabItem Header="信息">
+                                <TextBox x:Name="FetchResponseInfoTextBox" MaxHeight="300" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
+                            </TabItem>
+                        </TabControl>
+                    </GroupBox>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="更新镜像资源">
+                <StackPanel Margin="6" Width="500" HorizontalAlignment="Left">
+                    <GroupBox Header="请求" Margin="6">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="6">
+                                <TextBlock Text="Bucket (*)" Foreground="Red" Width="100"></TextBlock>
+                                <TextBox x:Name="PrefetchBucketTextBox" Width="300"></TextBox>
+                            </StackPanel>
+                            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="6">
+                                <TextBlock Text="Key (*)" Foreground="Red" Width="100"></TextBlock>
+                                <TextBox x:Name="PrefetchKeyTextBox" Width="300"></TextBox>
+                            </StackPanel>
+                            <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="6">
+                                <Button Content="Prefetch" Width="60" Click="PrefetchButton_Click"></Button>
+                            </StackPanel>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="回复" Margin="6">
+                        <TabControl Margin="6">
+                            <TabItem Header="内容">
+                                <TextBox x:Name="PrefetchResponseTextBox" MaxHeight="300" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
+                            </TabItem>
+                            <TabItem Header="格式化">
+                                <WebBrowser x:Name="PrefetchFormatResponseWebBrowser"></WebBrowser>
+                            </TabItem>
+                            <TabItem Header="信息">
+                                <TextBox x:Name="PrefetchResponseInfoTextBox" MaxHeight="300" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
+                            </TabItem>
+                        </TabControl>
+                    </GroupBox>
+                </StackPanel>
+            </TabItem>
+           
+            <TabItem Header="列举资源"></TabItem>
         </TabControl>
     </Grid>
 </Page>

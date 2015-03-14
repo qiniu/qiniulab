@@ -4,14 +4,90 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
-	Title="ResourcePfopPage">
-
-    <Grid>
-        <TabControl>
-            <TabItem>
-                pfop
-            </TabItem>
-        </TabControl>
-    </Grid>
+      d:DesignHeight="800" d:DesignWidth="800" Title="持久化">
+    <TabControl>
+        <TabItem Header="文件持久化处理">
+            <StackPanel Width="750" HorizontalAlignment="Left">
+                <GroupBox Header="请求"  Margin="6">
+                    <Grid Margin="6">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+               
+                    <StackPanel Grid.Row="0" Orientation="Horizontal">
+                        <TextBlock Text="Bucket (*)" Width="80" Margin="6" VerticalAlignment="Center" Foreground="Red"></TextBlock>
+                        <TextBox x:Name="BucketTextBox" Width="500" Margin="6"></TextBox>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <TextBlock Text="Key (*)" Width="80" Margin="6" VerticalAlignment="Center" Foreground="Red"></TextBlock>
+                        <TextBox x:Name="KeyTextBox" Width="500" Margin="6"></TextBox>
+                    </StackPanel>
+                    <StackPanel Grid.Row="2" Orientation="Horizontal">
+                        <TextBlock Text="Fops (*)" Width="80" Margin="6" VerticalAlignment="Top" Foreground="Red"></TextBlock>
+                        <TextBox x:Name="FopsTextBox" Width="500" Height="200" Margin="6" TextWrapping="Wrap"></TextBox>
+                    </StackPanel>
+                    <StackPanel Grid.Row="3" Orientation="Horizontal">
+                        <TextBlock Text="Pipeline" Width="80" Margin="6" VerticalAlignment="Center"></TextBlock>
+                        <TextBox x:Name="PipelineTextBox" Width="500" Margin="6"></TextBox>
+                    </StackPanel>
+                    <StackPanel Grid.Row="4" Orientation="Horizontal">
+                        <TextBlock Text="NotifyURL" Width="80" Margin="6" VerticalAlignment="Center"></TextBlock>
+                        <TextBox x:Name="NotifyURLTextBox" Width="500" Margin="6"></TextBox>
+                    </StackPanel>
+                    <StackPanel Grid.Row="5" Orientation="Horizontal">
+                        <TextBlock Text="Force" Width="80" Margin="6" VerticalAlignment="Center"></TextBlock>
+                        <CheckBox x:Name="ForceCheckBox" Width="500" Margin="6" VerticalAlignment="Center"></CheckBox>
+                    </StackPanel>
+                    <StackPanel Grid.Row="6">
+                        <Button Content="Pfop" Width="100" Height="25" HorizontalAlignment="Right"
+                                Click="PfopButton_Click"
+                                ></Button>
+                    </StackPanel>
+                </Grid>
+                </GroupBox>
+                <GroupBox Header="回复" Margin="6">
+                    <TabControl Margin="6">
+                        <TabItem Header="内容">
+                            <TextBox x:Name="PfopResponseTextBox" MaxHeight="120" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
+                        </TabItem>
+                        <TabItem Header="信息">
+                            <TextBox x:Name="PfopResponseInfoTextBox" MaxHeight="120" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
+                        </TabItem>
+                    </TabControl>
+                </GroupBox>
+            </StackPanel>
+        </TabItem>
+        <TabItem Header="结果查询">
+            <StackPanel Width="750" HorizontalAlignment="Left">
+            <GroupBox Header="请求" Margin="6">
+                <StackPanel Orientation="Horizontal" Margin="6">
+                    <TextBlock Text="PersistentId (*)" Width="100" Margin="6" VerticalAlignment="Center" Foreground="Red"></TextBlock>
+                    <TextBox x:Name="PersistentIdTextBox" Width="400" Margin="6" VerticalAlignment="Center" TextChanged="OnPersistentId_Changed"></TextBox>
+                    <Button Width="60" Content="查询" HorizontalAlignment="Right" Margin="6" VerticalAlignment="Center"
+                            Click="PrefopButton_Click" 
+                            ></Button>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="回复" Margin="6">
+                <TabControl Margin="6">
+                    <TabItem Header="内容">
+                        <TextBox x:Name="PrefopResponseTextBox" MaxHeight="300" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
+                    </TabItem>
+                    <TabItem Header="格式化" Height="23" VerticalAlignment="Top">
+                        <WebBrowser x:Name="PrefopFormatResponseWebBrowser" MaxHeight="300"></WebBrowser>
+                    </TabItem>
+                    <TabItem Header="信息">
+                        <TextBox x:Name="PrefopResponseInfoTextBox" MaxHeight="300" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
+                    </TabItem>
+                </TabControl>
+            </GroupBox>
+            </StackPanel>
+        </TabItem>
+    </TabControl>
 </Page>
