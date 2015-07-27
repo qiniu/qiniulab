@@ -79,7 +79,7 @@
                     <TabItem Header="内容">
                         <TextBox x:Name="PrefopResponseTextBox" MaxHeight="300" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
                     </TabItem>
-                    <TabItem Header="格式化" Height="23" VerticalAlignment="Top">
+                    <TabItem Header="格式化">
                         <WebBrowser x:Name="PrefopFormatResponseWebBrowser" MaxHeight="300"></WebBrowser>
                     </TabItem>
                     <TabItem Header="信息">

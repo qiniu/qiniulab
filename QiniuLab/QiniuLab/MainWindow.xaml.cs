@@ -23,10 +23,6 @@ namespace QiniuLab
         private ResourceDownloadPage resourceDownloadPage;
         private ResourceManagePage resourceManagePage;
         private ResourcePfopPage resourcePfopPage;
-        private PictureOperationPage pictureOperationPage;
-        private AudioOperationPage audioOperationPage;
-        private VideoOperationPage videoOperationPage;
-        private OtherOperationPage otherOperationPage;
         private ToolsPage toolsPage;
         private SettingsPage settingsPage;
         public MainWindow()
@@ -119,42 +115,6 @@ namespace QiniuLab
                 this.resourcePfopPage = new ResourcePfopPage();
             }
             this.MainHostFrame.Content = this.resourcePfopPage;
-        }
-
-        private void Nav_PictureOperation_MouseClick(object sender, MouseButtonEventArgs e)
-        {
-            if(this.pictureOperationPage==null)
-            {
-                this.pictureOperationPage = new PictureOperationPage();
-            }
-            this.MainHostFrame.Content = this.pictureOperationPage;
-        }
-
-        private void Nav_AudioOperation_MouseClick(object sender, MouseButtonEventArgs e)
-        {
-            if (this.audioOperationPage == null)
-            {
-                this.audioOperationPage = new AudioOperationPage();
-            }
-            this.MainHostFrame.Content = this.audioOperationPage;
-        }
-
-        private void Nav_VideoOperation_MouseClick(object sender, MouseButtonEventArgs e)
-        {
-            if (this.videoOperationPage == null)
-            {
-                this.videoOperationPage = new VideoOperationPage();
-            }
-            this.MainHostFrame.Content = this.videoOperationPage;
-        }
-
-        private void Nav_OtherOperation_MouseClick(object sender, MouseButtonEventArgs e)
-        {
-            if (this.otherOperationPage == null)
-            {
-                this.otherOperationPage = new OtherOperationPage();
-            }
-            this.MainHostFrame.Content = this.otherOperationPage;
         }
 
         private void Nav_Tools_MouseClick(object sender, MouseButtonEventArgs e)

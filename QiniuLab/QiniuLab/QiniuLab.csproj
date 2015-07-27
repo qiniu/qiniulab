@@ -103,15 +103,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>AppSettings.settings</DependentUpon>
     </Compile>
-    <Compile Include="AudioOperationPage.xaml.cs">
-      <DependentUpon>AudioOperationPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="OtherOperationPage.xaml.cs">
-      <DependentUpon>OtherOperationPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PictureOperationPage.xaml.cs">
-      <DependentUpon>PictureOperationPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ResourceDownloadPage.xaml.cs">
       <DependentUpon>ResourceDownloadPage.xaml</DependentUpon>
     </Compile>
@@ -130,13 +121,6 @@
     <Compile Include="ToolsPage.xaml.cs">
       <DependentUpon>ToolsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="VideoOperationPage.xaml.cs">
-      <DependentUpon>VideoOperationPage.xaml</DependentUpon>
-    </Compile>
-    <Page Include="AudioOperationPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -149,14 +133,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="OtherOperationPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="PictureOperationPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="ResourceDownloadPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -178,10 +154,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ToolsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="VideoOperationPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

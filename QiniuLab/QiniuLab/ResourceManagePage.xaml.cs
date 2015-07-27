@@ -16,6 +16,7 @@ namespace QiniuLab
     public partial class ResourceManagePage : Page
     {
         private string jsonResultTemplate;
+        private BucketManager bucketManager;
         public ResourceManagePage()
         {
             InitializeComponent();
@@ -28,6 +29,10 @@ namespace QiniuLab
             {
                 jsonResultTemplate = sr.ReadToEnd();
             }
+
+            Mac mac = new Mac(QiniuLab.AppSettings.Default.ACCESS_KEY,
+                    QiniuLab.AppSettings.Default.SECRET_KEY);
+            this.bucketManager = new BucketManager(mac);
         }
 
         private void StatButton_Click(object sender, RoutedEventArgs e)
@@ -39,11 +44,8 @@ namespace QiniuLab
                 return;
             }
             Task.Factory.StartNew(() =>
-            {
-                Mac mac = new Mac(QiniuLab.AppSettings.Default.ACCESS_KEY,
-                    QiniuLab.AppSettings.Default.SECRET_KEY);
-                BucketManager m = new BucketManager(mac);
-                StatResult statResult = m.stat(statBucket, statKey);
+            {        
+                StatResult statResult = bucketManager.stat(statBucket, statKey);
 
                 Dispatcher.BeginInvoke((Action)(() =>
                 {
@@ -75,10 +77,7 @@ namespace QiniuLab
             }
             Task.Factory.StartNew(() =>
             {
-                Mac mac = new Mac(QiniuLab.AppSettings.Default.ACCESS_KEY,
-                    QiniuLab.AppSettings.Default.SECRET_KEY);
-                BucketManager m = new BucketManager(mac);
-                HttpResult copyResult = m.copy(srcBucket, srcKey, destBucket, destKey);
+               HttpResult copyResult = this.bucketManager.copy(srcBucket, srcKey, destBucket, destKey);
 
                 Dispatcher.BeginInvoke((Action)(() =>
                 {
@@ -110,10 +109,7 @@ namespace QiniuLab
             }
             Task.Factory.StartNew(() =>
             {
-                Mac mac = new Mac(QiniuLab.AppSettings.Default.ACCESS_KEY,
-                    QiniuLab.AppSettings.Default.SECRET_KEY);
-                BucketManager m = new BucketManager(mac);
-                HttpResult moveResult = m.move(srcBucket, srcKey, destBucket, destKey);
+                HttpResult moveResult = this.bucketManager.move(srcBucket, srcKey, destBucket, destKey);
 
                 Dispatcher.BeginInvoke((Action)(() =>
                 {
@@ -142,10 +138,7 @@ namespace QiniuLab
             }
             Task.Factory.StartNew(() =>
             {
-                Mac mac = new Mac(QiniuLab.AppSettings.Default.ACCESS_KEY,
-                    QiniuLab.AppSettings.Default.SECRET_KEY);
-                BucketManager m = new BucketManager(mac);
-                HttpResult deleteResult = m.delete(deleteBucket, deleteKey);
+                HttpResult deleteResult = this.bucketManager.delete(deleteBucket, deleteKey);
 
                 Dispatcher.BeginInvoke((Action)(() =>
                 {
@@ -175,10 +168,7 @@ namespace QiniuLab
             }
             Task.Factory.StartNew(() =>
             {
-                Mac mac = new Mac(QiniuLab.AppSettings.Default.ACCESS_KEY,
-                    QiniuLab.AppSettings.Default.SECRET_KEY);
-                BucketManager m = new BucketManager(mac);
-                HttpResult chgmResult = m.chgm(chgmBucket, chgmKey, chgmMimeType);
+                HttpResult chgmResult = this.bucketManager.chgm(chgmBucket, chgmKey, chgmMimeType);
 
                 Dispatcher.BeginInvoke((Action)(() =>
                 {
@@ -206,12 +196,13 @@ namespace QiniuLab
             {
                 return;
             }
+            if (key.Length == 0)
+            {
+                key = null;
+            }
             Task.Factory.StartNew(() =>
             {
-                Mac mac = new Mac(QiniuLab.AppSettings.Default.ACCESS_KEY,
-                   QiniuLab.AppSettings.Default.SECRET_KEY);
-                BucketManager m = new BucketManager(mac);
-                HttpResult fetchResult = m.fetch(url, bucket, key);
+                HttpResult fetchResult = this.bucketManager.fetch(url, bucket, key);
 
                 Dispatcher.BeginInvoke((Action)(() =>
                 {
@@ -240,10 +231,7 @@ namespace QiniuLab
             }
             Task.Factory.StartNew(() =>
             {
-                Mac mac = new Mac(QiniuLab.AppSettings.Default.ACCESS_KEY,
-                    QiniuLab.AppSettings.Default.SECRET_KEY);
-                BucketManager m = new BucketManager(mac);
-                HttpResult prefetchResult = m.prefetch(prefetchBucket, prefetchKey);
+                HttpResult prefetchResult = this.bucketManager.prefetch(prefetchBucket, prefetchKey);
 
                 Dispatcher.BeginInvoke((Action)(() =>
                 {
@@ -271,10 +259,7 @@ namespace QiniuLab
             }
             Task.Factory.StartNew(() =>
            {
-               Mac mac = new Mac(QiniuLab.AppSettings.Default.ACCESS_KEY,
-                   QiniuLab.AppSettings.Default.SECRET_KEY);
-               BucketManager m = new BucketManager(mac);
-               HttpResult batchResult = m.batch(ops);
+               HttpResult batchResult = this.bucketManager.batch(ops);
 
                Dispatcher.BeginInvoke((Action)(() =>
                {
@@ -297,7 +282,7 @@ namespace QiniuLab
         {
             string statBucket = this.StatBucketTextBox.Text.Trim();
             string statKey = this.StatKeyTextBox.Text.Trim();
-            string op = new BucketManager().statOp(statBucket, statKey);
+            string op =this.bucketManager.statOp(statBucket, statKey);
             this.StatCmdResultTextBox.Text = op;
         }
 
@@ -307,7 +292,7 @@ namespace QiniuLab
             string srcKey = this.CopySrcKeyTextBox.Text.Trim();
             string destBucket = this.CopyDestBucketTextBox.Text.Trim();
             string destKey = this.CopyDestKeyTextBox.Text.Trim();
-            string op = new BucketManager().copyOp(srcBucket, srcKey, destBucket, destKey);
+            string op = this.bucketManager.copyOp(srcBucket, srcKey, destBucket, destKey);
             this.CopyCmdResultTextBox.Text = op;
         }
 
@@ -317,7 +302,7 @@ namespace QiniuLab
             string srcKey = this.MoveSrcKeyTextBox.Text.Trim();
             string destBucket = this.MoveDestBucketTextBox.Text.Trim();
             string destKey = this.MoveDestKeyTextBox.Text.Trim();
-            string op = new BucketManager().moveOp(srcBucket, srcKey, destBucket, destKey);
+            string op = this.bucketManager.moveOp(srcBucket, srcKey, destBucket, destKey);
             this.MoveCmdResultTextBox.Text = op;
         }
 
@@ -325,7 +310,7 @@ namespace QiniuLab
         {
             string deleteBucket = this.DeleteBucketTextBox.Text.Trim();
             string deleteKey = this.DeleteKeyTextBox.Text.Trim();
-            string op = new BucketManager().deleteOp(deleteBucket, deleteKey);
+            string op = this.bucketManager.deleteOp(deleteBucket, deleteKey);
             this.DeleteCmdResultTextBox.Text = op;
         }
 
@@ -334,7 +319,7 @@ namespace QiniuLab
             string chgmBucket = this.ChgmBucketTextBox.Text.Trim();
             string chgmKey = this.ChgmKeyTextBox.Text.Trim();
             string chgmMimeType = this.ChgmMimeTypeTextBox.Text.Trim();
-            string op = new BucketManager().chgmOp(chgmBucket, chgmKey, chgmMimeType);
+            string op =this.bucketManager.chgmOp(chgmBucket, chgmKey, chgmMimeType);
             this.ChgmCmdResultTextBox.Text = op;
         }
     }

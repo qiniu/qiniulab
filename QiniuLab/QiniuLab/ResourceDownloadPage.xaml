@@ -4,14 +4,47 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
-	Title="ResourceDownloadPage">
+      d:DesignHeight="700" d:DesignWidth="700"
+	Title="文件下载">
 
-    <Grid>
-        <TabControl>
-            <TabItem>
-                download
-            </TabItem>
-        </TabControl>
-    </Grid>
+    <StackPanel Margin="6" Width="650" HorizontalAlignment="Left">
+        <GroupBox Header="私有资源下载">
+            <StackPanel Margin="6">
+                <StackPanel>
+                    <GroupBox Header="基本信息">
+                        <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Width="100" Text="外链 (*)" Margin="6" VerticalAlignment="Top" Foreground="Red"></TextBlock>
+                            <TextBox x:Name="SourceUrlTextBox" Width="450" Height="200" TextWrapping="Wrap" Margin="6"></TextBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <RadioButton x:Name="DeadlineCheckBox"  Content="Deadline" GroupName="timestamp" 
+                                     Width="100" Margin="6" VerticalAlignment="Center" Checked="DeadlineCheckBox_Checked"
+                                     Unchecked="DeadlineCheckBox_UnChanged"></RadioButton>
+                            <TextBox x:Name="DeadlineTextBox" Width="300" Margin="6" IsEnabled="False"></TextBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <RadioButton x:Name="ExpireCheckBox" Content="Expire" GroupName="timestamp" 
+                                     Width="100" Margin="6" VerticalAlignment="Center" Checked="ExpireCheckBox_Changed"
+                                     Unchecked="ExpireCheckBox_UnChanged"></RadioButton>
+                            <TextBox x:Name="ExpireTextBox" Width="300" Margin="6" IsEnabled="False"></TextBox>
+                            <TextBlock Text="秒" Margin="6"></TextBlock>
+                        </StackPanel>
+                        </StackPanel>
+                    </GroupBox>
+                </StackPanel>
+         
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="CreateAuthButton" Content="生成" Width="100" Margin="6" Click="CreateAuthButton_Click"></Button>
+                </StackPanel>
+                <GroupBox Header="结果">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="已授权外链" Width="100" Margin="6"></TextBlock>
+                    <TextBox x:Name="AuthedUrlTextBox" Width="450" Height="200" TextWrapping="Wrap" 
+                             Margin="6" IsReadOnly="True"></TextBox> 
+                </StackPanel>
+                </GroupBox>
+            </StackPanel>
+        </GroupBox>
+    </StackPanel>
 </Page>

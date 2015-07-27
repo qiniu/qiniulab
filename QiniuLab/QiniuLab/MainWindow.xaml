@@ -103,47 +103,7 @@
                                 <TextBlock Grid.Column="1" Text="持久化" VerticalAlignment="Center" FontSize="16"></TextBlock>
                             </Grid>
                         </Border>
-                        <Border BorderBrush="Gainsboro" BorderThickness="1" Grid.Row="4">
-                            <Grid Cursor="Hand" MouseEnter="Nav_MouseEnter" MouseLeave="Nav_MouseLeave" MouseLeftButtonUp="Nav_PictureOperation_MouseClick">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="100"></ColumnDefinition>
-                                    <ColumnDefinition Width="100"></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
-                                <Image Grid.Column="0" Source="Pictures/picture.png" Width="48" Height="48" Margin="10 10 10 10"></Image>
-                                <TextBlock Grid.Column="1" Text="图片处理" VerticalAlignment="Center" FontSize="16"></TextBlock>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Gainsboro" BorderThickness="1" Grid.Row="5">
-                            <Grid Cursor="Hand" MouseEnter="Nav_MouseEnter" MouseLeave="Nav_MouseLeave" MouseLeftButtonUp="Nav_AudioOperation_MouseClick">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="100"></ColumnDefinition>
-                                    <ColumnDefinition Width="100"></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
-                                <Image Grid.Column="0" Source="Pictures/audio.png" Width="48" Height="48" Margin="10 10 10 10"></Image>
-                                <TextBlock Grid.Column="1" Text="音频处理" VerticalAlignment="Center" FontSize="16"></TextBlock>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Gainsboro" BorderThickness="1" Grid.Row="6">
-                            <Grid Cursor="Hand" MouseEnter="Nav_MouseEnter" MouseLeave="Nav_MouseLeave" MouseLeftButtonUp="Nav_VideoOperation_MouseClick">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="100"></ColumnDefinition>
-                                    <ColumnDefinition Width="100"></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
-                                <Image Grid.Column="0" Source="Pictures/video.png" Width="48" Height="48" Margin="10 10 10 10"></Image>
-                                <TextBlock Grid.Column="1" Text="视频处理" VerticalAlignment="Center" FontSize="16"></TextBlock>
-                            </Grid>
-                        </Border>
                         <Border BorderBrush="Gainsboro" BorderThickness="1" Grid.Row="7">
-                            <Grid Cursor="Hand" MouseEnter="Nav_MouseEnter" MouseLeave="Nav_MouseLeave" MouseLeftButtonUp="Nav_OtherOperation_MouseClick">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="100"></ColumnDefinition>
-                                    <ColumnDefinition Width="100"></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
-                                <Image Grid.Column="0" Source="Pictures/other.png" Width="48" Height="48" Margin="10 10 10 10"></Image>
-                                <TextBlock Grid.Column="1" Text="其他处理" VerticalAlignment="Center" FontSize="16"></TextBlock>
-                            </Grid>
-                        </Border>
-                        <Border BorderBrush="Gainsboro" BorderThickness="1" Grid.Row="8">
                             <Grid Cursor="Hand" MouseEnter="Nav_MouseEnter" MouseLeave="Nav_MouseLeave" MouseLeftButtonUp="Nav_Tools_MouseClick">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="100"></ColumnDefinition>
@@ -153,7 +113,7 @@
                                 <TextBlock Grid.Column="1" Text="工具" VerticalAlignment="Center" FontSize="16"></TextBlock>
                             </Grid>
                         </Border>
-                        <Border BorderBrush="Gainsboro" BorderThickness="1" Grid.Row="9">
+                        <Border BorderBrush="Gainsboro" BorderThickness="1" Grid.Row="8">
                             <Grid Cursor="Hand" MouseEnter="Nav_MouseEnter" MouseLeave="Nav_MouseLeave" MouseLeftButtonUp="Nav_Settings_MouseClick">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="100"></ColumnDefinition>

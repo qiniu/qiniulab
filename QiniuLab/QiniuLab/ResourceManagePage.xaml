@@ -293,7 +293,7 @@
                     <GroupBox Header="回复" Margin="6">
                         <TabControl Margin="6">
                             <TabItem Header="内容">
-                                <TextBox x:Name="FetchResponseTextBox" MaxHeight="300" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
+                                <TextBox x:Name="FetchResponseTextBox" MinHeight="50" MaxHeight="300" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
                             </TabItem>
                             <TabItem Header="格式化">
                                 <WebBrowser x:Name="FetchFormatResponseWebBrowser"></WebBrowser>
@@ -342,8 +342,6 @@
                     </GroupBox>
                 </StackPanel>
             </TabItem>
-           
-            <TabItem Header="列举资源"></TabItem>
         </TabControl>
     </Grid>
 </Page>
