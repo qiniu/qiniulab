@@ -20,7 +20,6 @@ namespace QiniuLab
         public ResourceManagePage()
         {
             InitializeComponent();
-            this.init();
         }
 
         private void init()
@@ -321,6 +320,11 @@ namespace QiniuLab
             string chgmMimeType = this.ChgmMimeTypeTextBox.Text.Trim();
             string op =this.bucketManager.chgmOp(chgmBucket, chgmKey, chgmMimeType);
             this.ChgmCmdResultTextBox.Text = op;
+        }
+
+        private void OnLoaded_EventHandler(object sender, RoutedEventArgs e)
+        {
+            this.init();
         }
     }
 }

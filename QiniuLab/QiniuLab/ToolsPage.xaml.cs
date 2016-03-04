@@ -41,7 +41,7 @@ namespace QiniuLab
             string toDecodeString = this.ToDecodeStringTextBox.Text;
             if (!string.IsNullOrEmpty(toDecodeString))
             {
-                this.DecodedStringTextBox.Text = Qiniu.Util.StringUtils.urlsafeBase64Decode(toDecodeString);
+                this.DecodedStringTextBox.Text = Encoding.UTF8.GetString(Qiniu.Util.StringUtils.urlsafeBase64Decode(toDecodeString));
             }
         }
 
