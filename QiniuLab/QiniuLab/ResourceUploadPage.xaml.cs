@@ -79,6 +79,12 @@ namespace QiniuLab
             catch (Exception) { }
             string mimeLimit = this.MimeLimitTextBox.Text;
             int detectMime = this.DetectMimeCheckBox.IsChecked.Value ? 1 : 0;
+            int deleteAfterDays = -1;
+            try
+            {
+                deleteAfterDays = Convert.ToInt32(this.DeleteAfterDaysTextBox.Text.Trim());
+            }
+            catch (Exception) { }
 
             PutPolicy putPolicy = new PutPolicy();
             putPolicy.Scope = scope;
@@ -142,6 +148,10 @@ namespace QiniuLab
             if (detectMime != 0)
             {
                 putPolicy.DetectMime = detectMime;
+            }
+            if (deleteAfterDays > 0)
+            {
+                putPolicy.DeleteAfterDays = deleteAfterDays;
             }
             string accessKey = QiniuLab.AppSettings.Default.ACCESS_KEY;
             string secretKey = QiniuLab.AppSettings.Default.SECRET_KEY;

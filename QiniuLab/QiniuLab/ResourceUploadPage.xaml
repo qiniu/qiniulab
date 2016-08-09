@@ -119,9 +119,10 @@
                                 </GroupBox>
                             </TabItem>
                             <TabItem Header="其他设置">
-                                <GroupBox  Margin="5" >
+                                <GroupBox  Margin="6" >
                                     <Grid>
                                         <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"></RowDefinition>
                                             <RowDefinition Height="*"></RowDefinition>
                                             <RowDefinition Height="*"></RowDefinition>
                                             <RowDefinition Height="*"></RowDefinition>
@@ -138,6 +139,10 @@
                                         <StackPanel Grid.Row="2" Orientation="Horizontal">
                                             <TextBlock Text="DetectMime" Width="120" Margin="5" VerticalAlignment="Center"></TextBlock>
                                             <CheckBox x:Name="DetectMimeCheckBox" Margin="5" VerticalAlignment="Center"></CheckBox>
+                                        </StackPanel>
+                                        <StackPanel Grid.Row="3" Orientation="Horizontal">
+                                            <TextBlock Text="DeleteAfterDays" Width="120" Margin="5" VerticalAlignment="Center"></TextBlock>
+                                            <TextBox x:Name="DeleteAfterDaysTextBox" Margin="5" VerticalAlignment="Center" Width="500"></TextBox>
                                         </StackPanel>
                                     </Grid>
                                 </GroupBox>
