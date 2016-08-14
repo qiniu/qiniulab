@@ -41,7 +41,14 @@ namespace QiniuLab
             string toDecodeString = this.ToDecodeStringTextBox.Text;
             if (!string.IsNullOrEmpty(toDecodeString))
             {
-                this.DecodedStringTextBox.Text = Encoding.UTF8.GetString(Qiniu.Util.StringUtils.urlsafeBase64Decode(toDecodeString));
+                try
+                {
+                    this.DecodedStringTextBox.Text =
+                            Encoding.UTF8.GetString(Qiniu.Util.StringUtils.urlsafeBase64Decode(toDecodeString));
+                }catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "解码错误", MessageBoxButton.OK);
+                }
             }
         }
 
