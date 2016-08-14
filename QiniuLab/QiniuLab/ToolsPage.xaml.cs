@@ -107,5 +107,17 @@ namespace QiniuLab
         {
             this.QETagResultTextBox.Text = "";
         }
+
+        private void ClearUrlSafeBase64Encode_Click(object sender, RoutedEventArgs e)
+        {
+            this.EncodedStringTextBox.Text = "";
+            this.ToEncodeStringTextBox.Text = "";
+        }
+
+        private void ClearUrlSafeBase64Decode_Click(object sender, RoutedEventArgs e)
+        {
+            this.DecodedStringTextBox.Text = "";
+            this.ToDecodeStringTextBox.Text = "";
+        }
     }
 }

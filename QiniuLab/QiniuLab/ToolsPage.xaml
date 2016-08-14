@@ -25,11 +25,13 @@
                     <TextBox x:Name="ToEncodeStringTextBox" Grid.Row="0" Grid.Column="0" Margin="10" TextWrapping="Wrap"></TextBox>
                     <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Margin="10">
                         <Button Content="编码" Width="100" Height="40" FontSize="14" Click="UrlSafeBase64Encode_Click"></Button>
+                        <Button Content="清除" Width="100" Height="40" FontSize="14" Click="ClearUrlSafeBase64Encode_Click" Margin="10"></Button>
                     </StackPanel>
                     <TextBox x:Name="EncodedStringTextBox"  Grid.Row="0" Grid.Column="2" Margin="10" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
                     <TextBox x:Name="ToDecodeStringTextBox" Grid.Row="1" Grid.Column="0" Margin="10"  TextWrapping="Wrap"></TextBox>
                     <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="10">
                         <Button Content="解码"  Width="100" Height="40" FontSize="14" Click="UrlSafeBase64Decode_Click"></Button>
+                        <Button Content="清除"  Width="100" Height="40" FontSize="14" Click="ClearUrlSafeBase64Decode_Click" Margin="10"></Button>
                     </StackPanel>
                     <TextBox x:Name="DecodedStringTextBox" Grid.Row="1" Grid.Column="2" Margin="10" IsReadOnly="True"  TextWrapping="Wrap"></TextBox>
                 </Grid>
