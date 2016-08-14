@@ -79,8 +79,9 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\..\qiniu-csharp-sdk\Qiniu\Qiniu\bin\x86\Release\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Qiniu">
-      <HintPath>..\..\..\qiniu-csharp-sdk\Qiniu\Qiniu\bin\x86\Release\Qiniu.dll</HintPath>
+    <Reference Include="Qiniu, Version=1.2.0.0, Culture=neutral, PublicKeyToken=6313a7fc557955aa, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\qiniu-csharp-sdk\Qiniu\Qiniu\bin\x86\Debug\Qiniu.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />

@@ -34,7 +34,7 @@ namespace QiniuLab
         {
             using (StreamReader sr = new StreamReader("Template/JsonFormat.html"))
             {
-                prefopResultTemplate=sr.ReadToEnd();
+                prefopResultTemplate = sr.ReadToEnd();
             }
         }
 
@@ -55,11 +55,8 @@ namespace QiniuLab
             {
                 Mac mac = new Mac(QiniuLab.AppSettings.Default.ACCESS_KEY,
                     QiniuLab.AppSettings.Default.SECRET_KEY);
-                Pfop pfop = new Pfop(mac, bucket, key, fops);
-                pfop.Pipeline = pipeline;
-                pfop.Force = force;
-                pfop.NotifyURL = notifyURL;
-                PfopResult pfopResult = pfop.pfop();
+                Pfop pfop = new Pfop(mac);
+                PfopResult pfopResult = pfop.pfop(bucket, key, fops.Split(';'), pipeline, notifyURL, force);
 
                 Dispatcher.BeginInvoke((Action)(() =>
                 {

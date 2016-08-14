@@ -258,7 +258,7 @@ namespace QiniuLab
             }
             Task.Factory.StartNew(() =>
            {
-               HttpResult batchResult = this.bucketManager.batch(ops);
+               HttpResult batchResult = this.bucketManager.batch(ops.Split(new char[]{'\r','\n'}));
 
                Dispatcher.BeginInvoke((Action)(() =>
                {
