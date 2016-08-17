@@ -27,6 +27,7 @@ namespace QiniuLab
     {
         private string jsonResultTemplate;
         private bool cancelUpload;
+        private string mimeType; // 添加 @fengyh
         public ResourceUploadPage()
         {
             InitializeComponent();
@@ -77,8 +78,27 @@ namespace QiniuLab
                 fsizeLimit = Convert.ToInt32(this.FsizeLimitTextBox.Text.Trim());
             }
             catch (Exception) { }
+            //////////////////////////////////////////////////////////////////////////////////////////////////////
+            //
+            // 如果用户设置了mimeType   
+            //     mimeType = MimeTypeTextBox.Text
+            //     PutPolicy.detectMime = 0
+            //
+            // 如果用户未设置mimeType   
+            //     mimeType = application/octect-stream
+            //     PutPolicy.detectMime = DetectMimeCheckBox.IsChecked
+            //
+            //////////////////////////////////////////////////////////////////////////////////////////////////////
+            int detectMime = 0; 
+            mimeType = this.MimeTypeTextBox.Text.Trim(); 
+            if (mimeType.Length == 0)
+            {
+                mimeType = "application/octet-stream"; 
+                detectMime = this.DetectMimeCheckBox.IsChecked.Value ? 1 : 0;
+            }
+
             string mimeLimit = this.MimeLimitTextBox.Text;
-            int detectMime = this.DetectMimeCheckBox.IsChecked.Value ? 1 : 0;
+            
             int deleteAfterDays = -1;
             try
             {
@@ -181,13 +201,17 @@ namespace QiniuLab
                 return;
             }
 
-            string mimeType = this.MimeTypeTextBox.Text.Trim();
+            // 移动代码(UploadButton_Click-->CreateTokenButton_Click) @fengyh, 2016-08-17-11:29
+            //string mimeType = this.MimeTypeTextBox.Text.Trim(); 
+         
             bool checkCrc32 = false;
             checkCrc32 = this.CheckCrc32CheckBox.IsChecked.Value;
-            if (mimeType.Length == 0)
-            {
-                mimeType = null;
-            }
+            // 移动代码(UploadButton_Click-->CreateTokenButton_Click) @fengyh, 2016-08-17-11:29
+            //if (mimeType.Length == 0)
+            //{
+            //    //mimeType = null;
+            //    mimeType = "application/octet-stream"; 
+            //} 
 
             string extraParamKey1 = this.ExtraParamKeyTextBox1.Text.Trim();
             string extraParamValue1 = this.ExtraParamValueTextBox1.Text.Trim();
