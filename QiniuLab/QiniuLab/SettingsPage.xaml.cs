@@ -32,5 +32,25 @@ namespace QiniuLab
             QiniuLab.AppSettings.Default.SECRET_KEY = this.SecretKeyTextBox.Text.Trim();
             QiniuLab.AppSettings.Default.Save();
         }
+
+        /// <summary>
+        /// 秘钥(SK)显示/隐藏功能
+        /// 2016-08-17 16:41 @fengyh
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SKVisButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.SecretKeyTextBox.Visibility == Visibility.Collapsed)
+            {
+                this.SecretKeyTextBox.Visibility = Visibility.Visible;
+                this.SKVisButton.Content = "隐藏";
+            }
+            else
+            {
+                this.SecretKeyTextBox.Visibility = Visibility.Collapsed;
+                this.SKVisButton.Content = "显示";
+            }
+        }
     }
 }

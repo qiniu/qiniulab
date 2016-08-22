@@ -21,7 +21,9 @@
                 </StackPanel>
                 <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="6">
                     <TextBlock Text="Secret Key" Width="80"></TextBlock>
-                    <TextBox  x:Name="SecretKeyTextBox"  Width="320"></TextBox>
+                    <!-- SK的"显示/隐藏"功能,默认为隐藏状态 -->
+                    <TextBox  x:Name="SecretKeyTextBox"  Width="280"  Visibility="Collapsed"></TextBox>
+                    <Button Name="SKVisButton" Click="SKVisButton_Click" Margin="3,0,0,0" Width="35">显示</Button>
                 </StackPanel>
                 <StackPanel Grid.Row="2">
                     <Button Content="保存" Width="100" 

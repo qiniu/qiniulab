@@ -251,15 +251,26 @@ namespace QiniuLab
 
         private void BatchButton_Click(object sender, RoutedEventArgs e)
         {
-            string ops = this.BatchOpsTextBox.Text.Trim();
+            //
+            // 在SDK的BucketManager中,batch(string[] ops)存在问题,等待修复
+            // (BUG原因: '/','='被替换为%2F,%3D)
+            //    
+            // 而直接使用batch(string ops)则没有问题,因此暂时使用此方法
+            //
+            // NOTES by fengyh 2016-08-17 16:20 
+            //
+            string ops = this.BatchOpsTextBox.Text.Trim(new char[] { ' ', '\r', '\n' }); // 移除前导/末尾空白/换行
             if (ops.Length == 0)
             {
                 return;
             }
+            string ops1 = ops.Replace(" ", ""); // 清除内部空白
+            string ops2 = ops1.Replace("\r\n\r\n", "\r\n"); // 清除内部空行
+            string ops3 = ops2.Replace("\r\n\r\n", "\r\n"); // 清除单个回车造成的换行
+            string opsa = "op=" + ops3.Replace("\r\n","&op=");
             Task.Factory.StartNew(() =>
            {
-               HttpResult batchResult = this.bucketManager.batch(ops.Split(new char[]{'\r','\n'}));
-
+               HttpResult batchResult = this.bucketManager.batch(opsa);
                Dispatcher.BeginInvoke((Action)(() =>
                {
                    this.BatchResponseTextBox.Text = batchResult.Response;
@@ -291,7 +302,8 @@ namespace QiniuLab
             string srcKey = this.CopySrcKeyTextBox.Text.Trim();
             string destBucket = this.CopyDestBucketTextBox.Text.Trim();
             string destKey = this.CopyDestKeyTextBox.Text.Trim();
-            string op = this.bucketManager.copyOp(srcBucket, srcKey, destBucket, destKey);
+            bool force = (bool)this.CopyForceOverwrite.IsChecked; // ADD 'force' 2016-08-17 16:17
+            string op = this.bucketManager.copyOp(srcBucket, srcKey, destBucket, destKey,force); // 'force'
             this.CopyCmdResultTextBox.Text = op;
         }
 
@@ -301,7 +313,8 @@ namespace QiniuLab
             string srcKey = this.MoveSrcKeyTextBox.Text.Trim();
             string destBucket = this.MoveDestBucketTextBox.Text.Trim();
             string destKey = this.MoveDestKeyTextBox.Text.Trim();
-            string op = this.bucketManager.moveOp(srcBucket, srcKey, destBucket, destKey);
+            bool force = (bool)this.CopyForceOverwrite.IsChecked; // ADD 'force' 2016-08-17 16:17
+            string op = this.bucketManager.moveOp(srcBucket, srcKey, destBucket, destKey,force); // 'force'
             this.MoveCmdResultTextBox.Text = op;
         }
 
