@@ -1,10 +1,8 @@
 #QiniuLab 七牛云存储实验室
 
-[TOC]
-
 ##简介
 
-最新版本下载[QiniuLab-v1.2](http://devtools.qiniu.com/QiniuLab-v1.2.zip)
+最新版本下载[QiniuLab-v1.2](http://devtools.qiniu.com/QiniuLab-v1.2.2.zip)
 
 ![01](docs/imgs/01.png)
 
