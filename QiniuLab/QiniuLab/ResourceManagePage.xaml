@@ -58,6 +58,7 @@
                                 <RowDefinition></RowDefinition>
                                 <RowDefinition></RowDefinition>
                                 <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
                             </Grid.RowDefinitions>
                             <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="6">
                                 <TextBlock Text="Src Bucket (*)" Foreground="Red" Width="100"></TextBlock>
@@ -75,9 +76,12 @@
                                 <TextBlock Text="Dest Key (*)" Foreground="Red" Width="100"></TextBlock>
                                 <TextBox x:Name="CopyDestKeyTextBox" Width="300"></TextBox>
                             </StackPanel>
-                            <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="6">
+                            <StackPanel Grid.Row="4" Margin="6">
+                                <CheckBox Name="CopyForceOverwrite">强制覆盖(如勾选此项,当目标文件已存在时会被覆盖)</CheckBox>
+                            </StackPanel>
+                            <StackPanel Grid.Row="5" Orientation="Horizontal" Margin="6">
                                 <Button Content="Copy" Width="60" Click="CopyButton_Click" Margin="0 6"></Button>
-                                <Button Content="Cmd" Width="60" Click="CopyCmdButton_Click" Margin="6"></Button>
+                                <Button Content="Cmd" Width="60" Click="CopyCmdButton_Click" Margin="6"/>
                                 <TextBox x:Name="CopyCmdResultTextBox" Width="261" Margin="6" IsReadOnly="True"></TextBox>
                             </StackPanel>
                         </Grid>
@@ -107,6 +111,7 @@
                                 <RowDefinition></RowDefinition>
                                 <RowDefinition></RowDefinition>
                                 <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
                             </Grid.RowDefinitions>
                             <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="6">
                                 <TextBlock Text="Src Bucket (*)" Foreground="Red" Width="100"></TextBlock>
@@ -124,7 +129,10 @@
                                 <TextBlock Text="Dest Key (*)" Foreground="Red" Width="100"></TextBlock>
                                 <TextBox x:Name="MoveDestKeyTextBox" Width="300"></TextBox>
                             </StackPanel>
-                            <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="6">
+                            <StackPanel Grid.Row="4" Margin="6">
+                                <CheckBox Name="MoveForceOverwrite">强制覆盖(如勾选此项,当目标文件已存在时会被覆盖)</CheckBox>
+                            </StackPanel>
+                            <StackPanel Grid.Row="5" Orientation="Horizontal" Margin="6">
                                 <Button Content="Move" Width="60" Click="MoveButton_Click" Margin="0 6"></Button>
                                 <Button Content="Cmd" Width="60" Click="MoveCmdButton_Click" Margin="6"></Button>
                                 <TextBox x:Name="MoveCmdResultTextBox" Width="261" Margin="6" IsReadOnly="True"></TextBox>
@@ -145,7 +153,7 @@
                         </TabControl>
                     </GroupBox>
                 </StackPanel>
-            </TabItem>   
+            </TabItem>
             <TabItem Header="删除资源">
                 <StackPanel Margin="6" Width="500" HorizontalAlignment="Left">
                     <GroupBox Header="请求" Margin="6">
@@ -240,7 +248,8 @@
                             </Grid.RowDefinitions>
                             <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="6">
                                 <TextBlock Text="Batch Ops (*)" Foreground="Red" Width="100"></TextBlock>
-                                <TextBox x:Name="BatchOpsTextBox" Width="450" Height="200" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"></TextBox>
+                                <!-- 允许换行输入,允许空格等等,详情参见对应事件处理函数 -->
+                                <TextBox x:Name="BatchOpsTextBox" Width="450" Height="200" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"></TextBox>
                             </StackPanel>
                             <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="6">
                                 <Button Content="Batch" Width="60" Click="BatchButton_Click"></Button>
