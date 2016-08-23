@@ -32,6 +32,11 @@
 
 ![03x](docs/imgs/03x.png)
 
+######更新内容 -- SK支持显示/隐藏
+
+![03a](docs/imgs/03a.png)
+![03b](docs/imgs/03b.png)
+
 ##文件上传
 
 点击左边栏“文件上传”-->配置“上传策略”-->“生成Token”-->“浏览并上传文件”
@@ -70,6 +75,10 @@
 
 ![10](docs/imgs/10.png)
 
+######更新内容 -- copy/move 支持force参数
+
+![10f](docs/imgs/10f.png)
+
 某些情形下回复“内容”为空
 
 ![11_1](docs/imgs/11_1.png)
@@ -83,6 +92,10 @@
 格式为：`op=(opString1)&op=(opString2)&op=…`
 
 ![12](docs/imgs/12.png)
+
+######已更新
+
+![12f](docs/imgs/12f.png)
 
 ##持久化
 
