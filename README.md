@@ -105,6 +105,44 @@
 
 ![14](docs/imgs/14.png)
 
+######已更新
+
+######触发持久化示例：给视频添加水印
+
+以下给出一个简单的示例，假设空间里有一个test.mp4视频，现在想要通过qiniulab工具对该视频添加一个水印(水印图片可以是网络上的或者空间里的，能被访问到)并保存。示例代码如下：
+	avthumb/mp4/wmImage/aHR0cDovL3h4eC5ia3QucWluaXVkbi5jb20vd2F0ZXJtYXJrLnBuZw==|saveas/dmlkZW90ZXN0Om91dHB1dC5tcDQ=
+
+其中：
+
+`wmImage`后面接的参数`aHR0cDovL3h4eC5ia3QucWluaXVkbi5jb20vd2F0ZXJtYXJrLnBuZw==`是url_safe_base64编码的水印图片地址`http://xxx.bkt.qiniudn.com/watermark.png`
+
+`saveas`后面接的参数`dmlkZW90ZXN0Om91dHB1dC5tcDQ=`是url_safe_base64编码的保存文件名，表示将要保存为`videotest:output.mp4`
+
+如果直接进行操作可能会因为任务排队造成长久等待，为了加快处理速度， 建议使用私有队列。以下
+根据此需求（ 给视频添加水印）列出具体步骤，供您参考。
+
+1.新建多媒体处理私有队列：
+
+![pfop-01](docs/imgs/pfop-01.png)
+
+![pfop-02](docs/imgs/pfop-02.png)
+
+2.打开工具，选择【持久化】创建任务：
+
+![pfop-03](docs/imgs/pfop-03.png)
+
+在fops输入框中输入fop命令，支持管道方式。
+
+3.设置好参数后执行【Pfop】，稍后可以查询处理结果：
+
+![pfop-04](docs/imgs/pfop-04.png)
+
+4.回到开发者平台-多媒体处理页面，可以查看所有作业：
+
+![pfop-05](docs/imgs/pfop-05.png)
+
+更多内容，请参考[音视频转码界面化操作队列](https://qiniu.kf5.com/hc/kb/article/147363/)，[音视频转码接口](http://developer.qiniu.com/code/v6/api/dora-api/av/#avthumb)，持久化处理-[对已有资源手动触发](http://developer.qiniu.com/article/developer/persistent-fop.html#pfop-existing-resource)
+
 ##工具
 
 Base64编码/解码
