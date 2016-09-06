@@ -47,6 +47,19 @@ namespace QiniuLab
             {
                 return;
             }
+            #region FIX_PFOP_ZONE_CONFIG
+            try
+            {
+                Qiniu.Common.ZoneInfo zoneInfo = new Qiniu.Common.ZoneInfo();
+                zoneInfo.ConfigZone(AppSettings.Default.ACCESS_KEY, bucket);
+                this.PfopResponseTextBox.Clear();
+            }
+            catch (Exception ex)
+            {
+                this.PfopResponseTextBox.Text = "配置出错，请检查您的输入(如scope/bucket等)\r\n" + ex.Message;
+                return;
+            }
+            #endregion FIX_PFOP_ZONE_CONFIG
             string pipeline = this.PipelineTextBox.Text.Trim();
             bool force = this.ForceCheckBox.IsChecked.Value;
             string notifyURL = this.NotifyURLTextBox.Text.Trim();

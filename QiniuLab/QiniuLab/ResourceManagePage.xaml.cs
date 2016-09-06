@@ -42,6 +42,19 @@ namespace QiniuLab
             {
                 return;
             }
+            #region FIX_STAT_ZONE_CONFIG
+            try
+            {
+                Qiniu.Common.ZoneInfo zoneInfo = new Qiniu.Common.ZoneInfo();
+                zoneInfo.ConfigZone(AppSettings.Default.ACCESS_KEY, statBucket);
+                this.StatResponseTextBox.Clear();
+            }
+            catch (Exception ex)
+            {
+                this.StatResponseTextBox.Text = "配置出错，请检查您的输入(如scope/bucket等)\r\n" + ex.Message;
+                return;
+            }
+            #endregion FIX_STAT_ZONE_CONFIG
             Task.Factory.StartNew(() =>
             {        
                 StatResult statResult = bucketManager.stat(statBucket, statKey);
@@ -74,6 +87,19 @@ namespace QiniuLab
             {
                 return;
             }
+            #region FIX_COPY_ZONE_CONFIG
+            try
+            {
+                Qiniu.Common.ZoneInfo zoneInfo = new Qiniu.Common.ZoneInfo();
+                zoneInfo.ConfigZone(AppSettings.Default.ACCESS_KEY, srcBucket); // ???
+                this.CopyResponseTextBox.Clear();
+            }
+            catch (Exception ex)
+            {
+                this.CopyResponseTextBox.Text = "配置出错，请检查您的输入(如scope/bucket等)\r\n" + ex.Message;
+                return;
+            }
+            #endregion FIX_COPY_ZONE_CONFIG
             Task.Factory.StartNew(() =>
             {
                HttpResult copyResult = this.bucketManager.copy(srcBucket, srcKey, destBucket, destKey);
@@ -106,6 +132,19 @@ namespace QiniuLab
             {
                 return;
             }
+            #region FIX_MOVE_ZONE_CONFIG
+            try
+            {
+                Qiniu.Common.ZoneInfo zoneInfo = new Qiniu.Common.ZoneInfo();
+                zoneInfo.ConfigZone(AppSettings.Default.ACCESS_KEY, srcBucket); // ???
+                this.MoveResponseTextBox.Clear();
+            }
+            catch (Exception ex)
+            {
+                this.MoveResponseTextBox.Text = "配置出错，请检查您的输入(如scope/bucket等)\r\n" + ex.Message;
+                return;
+            }
+            #endregion FIX_MOVE_ZONE_CONFIG
             Task.Factory.StartNew(() =>
             {
                 HttpResult moveResult = this.bucketManager.move(srcBucket, srcKey, destBucket, destKey);
@@ -135,6 +174,19 @@ namespace QiniuLab
             {
                 return;
             }
+            #region FIX_DEL_ZONE_CONFIG
+            try
+            {
+                Qiniu.Common.ZoneInfo zoneInfo = new Qiniu.Common.ZoneInfo();
+                zoneInfo.ConfigZone(AppSettings.Default.ACCESS_KEY, deleteBucket);
+                this.DeleteResponseTextBox.Clear();
+            }
+            catch (Exception ex)
+            {
+                this.DeleteResponseTextBox.Text = "配置出错，请检查您的输入(如scope/bucket等)\r\n" + ex.Message;
+                return;
+            }
+            #endregion FIX_DEL_ZONE_CONFIG
             Task.Factory.StartNew(() =>
             {
                 HttpResult deleteResult = this.bucketManager.delete(deleteBucket, deleteKey);
@@ -165,6 +217,19 @@ namespace QiniuLab
             {
                 return;
             }
+            #region FIX_CHGM_ZONE_CONFIG
+            try
+            {
+                Qiniu.Common.ZoneInfo zoneInfo = new Qiniu.Common.ZoneInfo();
+                zoneInfo.ConfigZone(AppSettings.Default.ACCESS_KEY, chgmBucket);
+                this.ChgmResponseTextBox.Clear();
+            }
+            catch (Exception ex)
+            {
+                this.ChgmResponseTextBox.Text = "配置出错，请检查您的输入(如scope/bucket等)\r\n" + ex.Message;
+                return;
+            }
+            #endregion FIX_CHGM_ZONE_CONFIG
             Task.Factory.StartNew(() =>
             {
                 HttpResult chgmResult = this.bucketManager.chgm(chgmBucket, chgmKey, chgmMimeType);
@@ -199,6 +264,19 @@ namespace QiniuLab
             {
                 key = null;
             }
+            #region FIX_FETCH_ZONE_CONFIG
+            try
+            {
+                Qiniu.Common.ZoneInfo zoneInfo = new Qiniu.Common.ZoneInfo();
+                zoneInfo.ConfigZone(AppSettings.Default.ACCESS_KEY, bucket);
+                this.FetchResponseTextBox.Clear();
+            }
+            catch (Exception ex)
+            {
+                this.FetchResponseTextBox.Text = "配置出错，请检查您的输入(如scope/bucket等)\r\n" + ex.Message;
+                return;
+            }
+            #endregion FIX_FETCH_ZONE_CONFIG
             Task.Factory.StartNew(() =>
             {
                 HttpResult fetchResult = this.bucketManager.fetch(url, bucket, key);
@@ -228,6 +306,19 @@ namespace QiniuLab
             {
                 return;
             }
+            #region FIX_PREF_ZONE_CONFIG
+            try
+            {
+                Qiniu.Common.ZoneInfo zoneInfo = new Qiniu.Common.ZoneInfo();
+                zoneInfo.ConfigZone(AppSettings.Default.ACCESS_KEY, prefetchBucket);
+                this.PrefetchResponseTextBox.Clear();
+            }
+            catch (Exception ex)
+            {
+                this.PrefetchResponseTextBox.Text = "配置出错，请检查您的输入(如scope/bucket等)\r\n" + ex.Message;
+                return;
+            }
+            #endregion FIX_PREF_ZONE_CONFIG
             Task.Factory.StartNew(() =>
             {
                 HttpResult prefetchResult = this.bucketManager.prefetch(prefetchBucket, prefetchKey);
