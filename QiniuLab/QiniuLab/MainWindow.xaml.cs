@@ -23,6 +23,7 @@ namespace QiniuLab
         private ResourceDownloadPage resourceDownloadPage;
         private ResourceManagePage resourceManagePage;
         private ResourcePfopPage resourcePfopPage;
+        private ResourceCDNPage resourceCdnPage;
         private ToolsPage toolsPage;
         private SettingsPage settingsPage;
         public MainWindow()
@@ -115,6 +116,15 @@ namespace QiniuLab
                 this.resourcePfopPage = new ResourcePfopPage();
             }
             this.MainHostFrame.Content = this.resourcePfopPage;
+        }
+
+        private void Nav_ResourceFusion_MouseClick(object sender, MouseButtonEventArgs e)
+        {
+            if (this.resourceCdnPage == null)
+            {
+                this.resourceCdnPage = new ResourceCDNPage();
+            }
+            this.MainHostFrame.Content = this.resourceCdnPage;
         }
 
         private void Nav_Tools_MouseClick(object sender, MouseButtonEventArgs e)

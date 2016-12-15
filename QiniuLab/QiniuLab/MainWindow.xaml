@@ -103,6 +103,16 @@
                                 <TextBlock Grid.Column="1" Text="持久化" VerticalAlignment="Center" FontSize="16"></TextBlock>
                             </Grid>
                         </Border>
+                        <Border BorderBrush="Gainsboro" BorderThickness="1" Grid.Row="4">
+                            <Grid Cursor="Hand" MouseEnter="Nav_MouseEnter" MouseLeave="Nav_MouseLeave" MouseLeftButtonUp="Nav_ResourceFusion_MouseClick">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100"></ColumnDefinition>
+                                    <ColumnDefinition Width="100"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Column="0" Source="Pictures/fusion.png" Width="48" Height="48" Margin="10 10 10 10"></Image>
+                                <TextBlock Grid.Column="1" Text="融合CDN" VerticalAlignment="Center" FontSize="16"></TextBlock>
+                            </Grid>
+                        </Border>
                         <Border BorderBrush="Gainsboro" BorderThickness="1" Grid.Row="7">
                             <Grid Cursor="Hand" MouseEnter="Nav_MouseEnter" MouseLeave="Nav_MouseLeave" MouseLeftButtonUp="Nav_Tools_MouseClick">
                                 <Grid.ColumnDefinitions>
@@ -127,7 +137,7 @@
                 </StackPanel>
 
                 <DockPanel Grid.Column="2">
-                    <Frame x:Name="MainHostFrame" Background="WhiteSmoke"></Frame>
+                    <Frame x:Name="MainHostFrame" Background="WhiteSmoke" NavigationUIVisibility="Hidden"></Frame>
                 </DockPanel>
             </Grid>
             
