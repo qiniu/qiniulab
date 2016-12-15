@@ -2,13 +2,13 @@
 
 ##简介
 
-最新版本下载[QiniuLab-v1.2](http://devtools.qiniu.com/QiniuLab-v1.2.2.zip)
+最新版本下载[QiniuLab-v1.3](http://devtools.qiniu.com/QiniuLab-v1.3.zip)
 
-![01](docs/imgs/01.png)
+![01](docs/imgs/fusion-00.png)
 
 (1)功能菜单(左侧工具栏)
 
-文件上传、文件下载、资源管理、持久化、工具、设置
+文件上传、文件下载、资源管理、持久化、融合CDN、工具、设置
 
 (2)快捷链接(右上角文本链接)
 
@@ -142,6 +142,35 @@
 ![pfop-05](docs/imgs/pfop-05.png)
 
 更多内容，请参考[音视频转码界面化操作队列](https://qiniu.kf5.com/hc/kb/article/147363/)，[音视频转码接口](http://developer.qiniu.com/code/v6/api/dora-api/av/#avthumb)，持久化处理-[对已有资源手动触发](http://developer.qiniu.com/article/developer/persistent-fop.html#pfop-existing-resource)
+
+##融合CDN加速
+
+帮助文档请戳[这里](http://developer.qiniu.com/article/index.html#fusion-api-handbook)
+
+* 缓存刷新
+
+![fusion-refresh](docs/imgs/fusion-refresh.png)
+
+* 文件预取
+
+![fusion-prefetch](docs/imgs/fusion-prefetch.png)
+
+* 带宽查询
+
+![fusion-bandwidth](docs/imgs/fusion-bandwidth.png)
+
+* 流量查询
+
+![fusion-flux](docs/imgs/fusion-flux.png)
+
+* 日志查询
+
+![fusion-loglist](docs/imgs/fusion-loglist.png)
+
+* 时间戳防盗链
+
+![fusion-hotlink](docs/imgs/fusion-hotlink.png)
+
 
 ##工具
 
