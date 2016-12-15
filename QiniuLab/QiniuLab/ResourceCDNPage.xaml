@@ -1,0 +1,207 @@
+﻿<Page x:Class="QiniuLab.ResourceCDNPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="融合CDN加速">
+
+    <Grid>
+        <TabControl>
+            <TabItem Header="缓存刷新">
+                <StackPanel Margin="6" Width="500" HorizontalAlignment="Left">
+                    <GroupBox Header="请求" Margin="6">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="6">
+                                <TextBlock Text="URLs" Width="40"></TextBlock>
+                                <TextBox Name="TextBox_FusionRefreshURLs" Width="400"></TextBox>
+                            </StackPanel>
+                            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="6">
+                                <TextBlock Text="DIRs" Width="40"></TextBlock>
+                                <TextBox Name="TextBox_FusionRefreshDIRs" Width="400"></TextBox>
+                            </StackPanel>
+                            <Button Grid.Row="2" Content="Refresh" Name="Button_FusionRefresh" Width="60" Margin="0 6" Click="Button_FusionRefresh_Click"></Button>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="回复" Margin="6">
+                        <TextBox MaxHeight="300" MinHeight="100" IsReadOnly="True" TextWrapping="Wrap"
+                                         Name="TextBox_FusionRefreshResponse"></TextBox>
+                    </GroupBox>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="文件预取">
+                <StackPanel Margin="6" Width="500" HorizontalAlignment="Left">
+                    <GroupBox Header="请求" Margin="6">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="6">
+                                <TextBlock Text="URL" Width="40"></TextBlock>
+                                <TextBox Name="TextBox_FusionPrefetchURLs" Width="400"></TextBox>
+                            </StackPanel>
+                            <Button Grid.Row="1" Content="Prefetch" Width="60" Margin="0 6"
+                                    Name="Button_FusionPrefetch" Click="Button_FusionPrefetch_Click"></Button>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="回复" Margin="6">
+                        <TextBox MaxHeight="300" MinHeight="100" IsReadOnly="True" TextWrapping="Wrap"
+                                         Name="TextBox_FusionPrefetchResponse"></TextBox>
+                    </GroupBox>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="带宽查询">
+                <StackPanel Margin="6" Width="500" HorizontalAlignment="Left">
+                    <GroupBox Header="请求" Margin="6">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="6">
+                                <TextBlock Text="Domains" Width="80"></TextBlock>
+                                <TextBox Name="TextBox_FusionBandwidthDomains" Width="360"></TextBox>
+                            </StackPanel>
+                            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="6">
+                                <TextBlock Text="StartDate" Width="80"></TextBlock>
+                                <TextBox Name="TextBox_FusionBandwidthStartDate" Width="360"></TextBox>
+                            </StackPanel>
+                            <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="6">
+                                <TextBlock Text="EndDate" Width="80"></TextBlock>
+                                <TextBox Name="TextBox_FusionBandwidthEndDate" Width="360"></TextBox>
+                            </StackPanel>
+                            <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="6">
+                                <TextBlock Text="Granularity" Width="80"></TextBlock>
+                                <TextBox Name="TextBox_FusionBandwidthGranularity" Width="360"></TextBox>
+                            </StackPanel>
+                            <Button Grid.Row="4" Content="Bandwidth" Width="80" Margin="0 6"
+                                    Name="Button_FusionBandwidth" Click="Button_FusionBandwidth_Click"></Button>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="回复" Margin="6">
+                        <TextBox MaxHeight="300" MinHeight="100" IsReadOnly="True" TextWrapping="Wrap"
+                                         Name="TextBox_FusionBandwidthResponse"></TextBox>
+                    </GroupBox>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="流量查询">
+                <StackPanel Margin="6" Width="500" HorizontalAlignment="Left">
+                    <GroupBox Header="请求" Margin="6">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="6">
+                                <TextBlock Text="Domains" Width="80"></TextBlock>
+                                <TextBox Name="TextBox_FusionFluxDomains" Width="360"></TextBox>
+                            </StackPanel>
+                            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="6">
+                                <TextBlock Text="StartDate" Width="80"></TextBlock>
+                                <TextBox Name="TextBox_FusionFluxStartDate" Width="360"></TextBox>
+                            </StackPanel>
+                            <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="6">
+                                <TextBlock Text="EndDate" Width="80"></TextBlock>
+                                <TextBox Name="TextBox_FusionFluxEndDate" Width="360"></TextBox>
+                            </StackPanel>
+                            <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="6">
+                                <TextBlock Text="Granularity" Width="80"></TextBlock>
+                                <TextBox Name="TextBox_FusionFluxGranularity" Width="360"></TextBox>
+                            </StackPanel>
+                            <Button Grid.Row="4" Content="Flux" Width="60" Margin="0 6"
+                                    Name="Button_FusionFlux" Click="Button_FusionFlux_Click"></Button>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="回复" Margin="6">
+                        <TextBox MaxHeight="300" MinHeight="100" IsReadOnly="True" TextWrapping="Wrap"
+                                         Name="TextBox_FusionFluxResponse"></TextBox>
+                    </GroupBox>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="日志查询">
+                <StackPanel Margin="6" Width="500" HorizontalAlignment="Left">
+                    <GroupBox Header="请求" Margin="6">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="6">
+                                <TextBlock Text="Domains" Width="60"></TextBlock>
+                                <TextBox Name="TextBox_FusionLoglistDomains" Width="400"></TextBox>
+                            </StackPanel>
+                            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="6">
+                                <TextBlock Text="Day" Width="60"></TextBlock>
+                                <TextBox Name="TextBox_FusionLoglistDay" Width="400"></TextBox>
+                            </StackPanel>
+                            <Button Grid.Row="2" Content="LogList" Width="60" Margin="0 6"
+                                    Name="Button_FusionLoglist" Click="Button_FusionLoglist_Click"></Button>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="回复" Margin="6">
+                        <TextBox MaxHeight="300" MinHeight="100" IsReadOnly="True" TextWrapping="Wrap"
+                                         Name="TextBox_FusionLogListResponse"></TextBox>
+                    </GroupBox>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="时间戳防盗链">
+                <StackPanel Margin="6" Width="500" HorizontalAlignment="Left">
+                    <GroupBox Header="请求" Margin="6">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="6">
+                                <TextBlock Text="Host" Width="80"></TextBlock>
+                                <TextBox Name="TextBox_FusionHotlinkHost" Width="360"></TextBox>
+                            </StackPanel>
+                            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="6">
+                                <TextBlock Text="Path" Width="80"></TextBlock>
+                                <TextBox Name="TextBox_FusionHotlinkPath" Width="360"></TextBox>
+                            </StackPanel>
+                            <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="6">
+                                <TextBlock Text="File" Width="80"></TextBlock>
+                                <TextBox Name="TextBox_FusionHotlinkFile" Width="360"></TextBox>
+                            </StackPanel>
+                            <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="6">
+                                <TextBlock Text="Query" Width="80"></TextBlock>
+                                <TextBox Name="TextBox_FusionHotlinkQuery" Width="360"></TextBox>
+                            </StackPanel>
+                            <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="6">
+                                <TextBlock Text="Timestamp" Width="80"></TextBlock>
+                                <TextBox Name="TextBox_FusionHotlinkTimestamp" Width="360"></TextBox>
+                            </StackPanel>
+                            <StackPanel Grid.Row="5" Orientation="Horizontal" Margin="6">
+                                <TextBlock Text="Key" Width="80"></TextBlock>
+                                <TextBox Name="TextBox_FusionHotlinkQiniuKey" Width="360"></TextBox>
+                            </StackPanel>                            
+                            <Button Grid.Row="6" Content="HotLink" Width="60" Margin="0 6"
+                                    Name="Button_Hotlink" Click="Button_Hotlink_Click"></Button>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="结果" Margin="6">
+                        <TextBox MaxHeight="300" MinHeight="100" IsReadOnly="True" TextWrapping="Wrap"
+                                         Name="TextBox_FusionHotLinkResponse"></TextBox>
+                    </GroupBox>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Page>

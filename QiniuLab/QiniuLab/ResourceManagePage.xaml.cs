@@ -45,8 +45,7 @@ namespace QiniuLab
             #region FIX_STAT_ZONE_CONFIG
             try
             {
-                Qiniu.Common.ZoneInfo zoneInfo = new Qiniu.Common.ZoneInfo();
-                zoneInfo.ConfigZone(AppSettings.Default.ACCESS_KEY, statBucket);
+                Qiniu.Common.Config.ConfigZoneAuto(AppSettings.Default.ACCESS_KEY, statBucket);
                 this.StatResponseTextBox.Clear();
             }
             catch (Exception ex)
@@ -90,8 +89,7 @@ namespace QiniuLab
             #region FIX_COPY_ZONE_CONFIG
             try
             {
-                Qiniu.Common.ZoneInfo zoneInfo = new Qiniu.Common.ZoneInfo();
-                zoneInfo.ConfigZone(AppSettings.Default.ACCESS_KEY, srcBucket); // ???
+                Qiniu.Common.Config.ConfigZoneAuto(AppSettings.Default.ACCESS_KEY, srcBucket);
                 this.CopyResponseTextBox.Clear();
             }
             catch (Exception ex)
@@ -135,8 +133,7 @@ namespace QiniuLab
             #region FIX_MOVE_ZONE_CONFIG
             try
             {
-                Qiniu.Common.ZoneInfo zoneInfo = new Qiniu.Common.ZoneInfo();
-                zoneInfo.ConfigZone(AppSettings.Default.ACCESS_KEY, srcBucket); // ???
+                Qiniu.Common.Config.ConfigZoneAuto(AppSettings.Default.ACCESS_KEY, srcBucket);
                 this.MoveResponseTextBox.Clear();
             }
             catch (Exception ex)
@@ -177,8 +174,7 @@ namespace QiniuLab
             #region FIX_DEL_ZONE_CONFIG
             try
             {
-                Qiniu.Common.ZoneInfo zoneInfo = new Qiniu.Common.ZoneInfo();
-                zoneInfo.ConfigZone(AppSettings.Default.ACCESS_KEY, deleteBucket);
+                Qiniu.Common.Config.ConfigZoneAuto(AppSettings.Default.ACCESS_KEY, deleteBucket);
                 this.DeleteResponseTextBox.Clear();
             }
             catch (Exception ex)
@@ -220,8 +216,7 @@ namespace QiniuLab
             #region FIX_CHGM_ZONE_CONFIG
             try
             {
-                Qiniu.Common.ZoneInfo zoneInfo = new Qiniu.Common.ZoneInfo();
-                zoneInfo.ConfigZone(AppSettings.Default.ACCESS_KEY, chgmBucket);
+                Qiniu.Common.Config.ConfigZoneAuto(AppSettings.Default.ACCESS_KEY, chgmBucket);
                 this.ChgmResponseTextBox.Clear();
             }
             catch (Exception ex)
@@ -267,8 +262,7 @@ namespace QiniuLab
             #region FIX_FETCH_ZONE_CONFIG
             try
             {
-                Qiniu.Common.ZoneInfo zoneInfo = new Qiniu.Common.ZoneInfo();
-                zoneInfo.ConfigZone(AppSettings.Default.ACCESS_KEY, bucket);
+                Qiniu.Common.Config.ConfigZoneAuto(AppSettings.Default.ACCESS_KEY, bucket);
                 this.FetchResponseTextBox.Clear();
             }
             catch (Exception ex)
@@ -309,8 +303,7 @@ namespace QiniuLab
             #region FIX_PREF_ZONE_CONFIG
             try
             {
-                Qiniu.Common.ZoneInfo zoneInfo = new Qiniu.Common.ZoneInfo();
-                zoneInfo.ConfigZone(AppSettings.Default.ACCESS_KEY, prefetchBucket);
+                Qiniu.Common.Config.ConfigZoneAuto(AppSettings.Default.ACCESS_KEY,prefetchBucket);
                 this.PrefetchResponseTextBox.Clear();
             }
             catch (Exception ex)

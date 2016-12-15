@@ -50,8 +50,7 @@ namespace QiniuLab
             #region FIX_PFOP_ZONE_CONFIG
             try
             {
-                Qiniu.Common.ZoneInfo zoneInfo = new Qiniu.Common.ZoneInfo();
-                zoneInfo.ConfigZone(AppSettings.Default.ACCESS_KEY, bucket);
+                Qiniu.Common.Config.ConfigZoneAuto(AppSettings.Default.ACCESS_KEY, bucket);
                 this.PfopResponseTextBox.Clear();
             }
             catch (Exception ex)
