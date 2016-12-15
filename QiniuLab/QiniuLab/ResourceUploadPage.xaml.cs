@@ -175,7 +175,7 @@ namespace QiniuLab
             }
             string accessKey = QiniuLab.AppSettings.Default.ACCESS_KEY;
             string secretKey = QiniuLab.AppSettings.Default.SECRET_KEY;
-            #region FIX_UPLOAD_ZONE_CONFIG
+            #region FIX_ADD_ZONE_CONFIG
             try
             {
                 string bucket=scope;
@@ -185,8 +185,7 @@ namespace QiniuLab
                     bucket=scope.Remove(pos);
                 }
 
-                Qiniu.Common.ZoneInfo zoneInfo = new Qiniu.Common.ZoneInfo();
-                zoneInfo.ConfigZone(accessKey, bucket);
+                Qiniu.Common.Config.ConfigZoneAuto(AppSettings.Default.ACCESS_KEY, bucket);
                 this.UploadResponseTextBox.Clear();
             }
             catch(Exception ex)
@@ -194,7 +193,7 @@ namespace QiniuLab
                 this.UploadResponseTextBox.Text = "配置出错，请检查您的输入(如scope/bucket等)\r\n" + ex.Message;
                 return;
             }
-            #endregion FIX_UPLOAD_ZONE_CONFIG
+            #endregion FIX_ADD_ZONE_CONFIG
             Mac mac = new Mac(accessKey, secretKey);
             string uploadToken = Auth.createUploadToken(putPolicy, mac);
             this.UploadTokenTextBox.Text = uploadToken;
