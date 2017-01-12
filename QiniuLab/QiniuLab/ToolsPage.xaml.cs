@@ -32,7 +32,7 @@ namespace QiniuLab
             string toEncodeString = this.ToEncodeStringTextBox.Text;
             if (!string.IsNullOrEmpty(toEncodeString))
             {
-                this.EncodedStringTextBox.Text = Qiniu.Util.StringUtils.urlSafeBase64Encode(toEncodeString);
+                this.EncodedStringTextBox.Text = StringHelper.urlSafeBase64Encode(toEncodeString);
             }
         }
 
@@ -44,7 +44,7 @@ namespace QiniuLab
                 try
                 {
                     this.DecodedStringTextBox.Text =
-                            Encoding.UTF8.GetString(Qiniu.Util.StringUtils.urlsafeBase64Decode(toDecodeString));
+                            Encoding.UTF8.GetString(StringHelper.urlsafeBase64Decode(toDecodeString));
                 }catch(Exception ex)
                 {
                     MessageBox.Show(ex.Message, "解码错误", MessageBoxButton.OK);
@@ -68,7 +68,7 @@ namespace QiniuLab
             {
                 try
                 {
-                    string qetag = QETag.hash(fileName);
+                    string qetag = QETag.calcHash(fileName);
                     this.QETagResultTextBox.Text = qetag;
                 }
                 catch (Exception) { }
@@ -91,7 +91,7 @@ namespace QiniuLab
             {
                 try
                 {
-                    string crc32 = CRC32.CheckSumFile(fileName).ToString();
+                    string crc32 = CRC32.checkSumFile(fileName).ToString();
                     this.CRC32ResultTextBox.Text = crc32;
                 }
                 catch (Exception) { }

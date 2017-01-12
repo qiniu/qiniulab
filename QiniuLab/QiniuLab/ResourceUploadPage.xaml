@@ -249,9 +249,6 @@
                 <TabItem Header="内容">
                     <TextBox x:Name="UploadResponseTextBox" Height="200" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
                 </TabItem>
-                <TabItem Header="格式化">
-                    <WebBrowser x:Name="UploadFormatResponseWebBrowser" MinHeight="200"></WebBrowser>
-                </TabItem>
                 <TabItem Header="信息">
                     <TextBox x:Name="UploadResponseInfoTextBox" Height="200" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
                 </TabItem>

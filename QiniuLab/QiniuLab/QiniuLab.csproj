@@ -45,7 +45,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -76,14 +76,8 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\csharp-sdk-v7.0-lo\bin\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Qiniu, Version=1.2.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\csharp-sdk-v7.0-lo\bin\Qiniu.dll</HintPath>
-    </Reference>
+    <Reference Include="Newtonsoft.Json" />
+    <Reference Include="Qiniu" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xaml" />
@@ -239,9 +233,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Pictures\fusion.png" />
-    <Content Include="Template\JsonFormat.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -38,9 +38,6 @@
                             <TabItem Header="内容">
                                 <TextBox x:Name="StatResponseTextBox" MaxHeight="300" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
                             </TabItem>
-                            <TabItem Header="格式化">
-                                <WebBrowser x:Name="StatFormatResponseWebBrowser"></WebBrowser>
-                            </TabItem>
                             <TabItem Header="信息">
                                 <TextBox x:Name="StatResponseInfoTextBox" MaxHeight="300" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
                             </TabItem>
@@ -90,9 +87,6 @@
                         <TabControl Margin="6">
                             <TabItem Header="内容">
                                 <TextBox x:Name="CopyResponseTextBox" MaxHeight="300" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
-                            </TabItem>
-                            <TabItem Header="格式化">
-                                <WebBrowser x:Name="CopyFormatResponseWebBrowser"></WebBrowser>
                             </TabItem>
                             <TabItem Header="信息">
                                 <TextBox x:Name="CopyResponseInfoTextBox" MaxHeight="300" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
@@ -144,9 +138,6 @@
                             <TabItem Header="内容">
                                 <TextBox x:Name="MoveResponseTextBox" MaxHeight="300" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
                             </TabItem>
-                            <TabItem Header="格式化">
-                                <WebBrowser x:Name="MoveFormatResponseWebBrowser"></WebBrowser>
-                            </TabItem>
                             <TabItem Header="信息">
                                 <TextBox x:Name="MoveResponseInfoTextBox" MaxHeight="300" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
                             </TabItem>
@@ -182,9 +173,6 @@
                         <TabControl Margin="6">
                             <TabItem Header="内容">
                                 <TextBox x:Name="DeleteResponseTextBox" MaxHeight="300" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
-                            </TabItem>
-                            <TabItem Header="格式化">
-                                <WebBrowser x:Name="DeleteFormatResponseWebBrowser"></WebBrowser>
                             </TabItem>
                             <TabItem Header="信息">
                                 <TextBox x:Name="DeleteResponseInfoTextBox" MaxHeight="300" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
@@ -227,9 +215,6 @@
                             <TabItem Header="内容">
                                 <TextBox x:Name="ChgmResponseTextBox" MaxHeight="300" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
                             </TabItem>
-                            <TabItem Header="格式化">
-                                <WebBrowser x:Name="ChgmFormatResponseWebBrowser"></WebBrowser>
-                            </TabItem>
                             <TabItem Header="信息">
                                 <TextBox x:Name="ChgmResponseInfoTextBox" MaxHeight="300" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
                             </TabItem>
@@ -260,9 +245,6 @@
                         <TabControl Margin="6">
                             <TabItem Header="内容">
                                 <TextBox x:Name="BatchResponseTextBox" MinHeight="300" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
-                            </TabItem>
-                            <TabItem Header="格式化">
-                                <WebBrowser x:Name="BatchFormatResponseWebBrowser" MinHeight="300"></WebBrowser>
                             </TabItem>
                             <TabItem Header="信息">
                                 <TextBox x:Name="BatchResponseInfoTextBox" MinHeight="300" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
@@ -304,9 +286,6 @@
                             <TabItem Header="内容">
                                 <TextBox x:Name="FetchResponseTextBox" MinHeight="50" MaxHeight="300" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
                             </TabItem>
-                            <TabItem Header="格式化">
-                                <WebBrowser x:Name="FetchFormatResponseWebBrowser"></WebBrowser>
-                            </TabItem>
                             <TabItem Header="信息">
                                 <TextBox x:Name="FetchResponseInfoTextBox" MaxHeight="300" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
                             </TabItem>
@@ -340,9 +319,6 @@
                         <TabControl Margin="6">
                             <TabItem Header="内容">
                                 <TextBox x:Name="PrefetchResponseTextBox" MaxHeight="300" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
-                            </TabItem>
-                            <TabItem Header="格式化">
-                                <WebBrowser x:Name="PrefetchFormatResponseWebBrowser"></WebBrowser>
                             </TabItem>
                             <TabItem Header="信息">
                                 <TextBox x:Name="PrefetchResponseInfoTextBox" MaxHeight="300" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
