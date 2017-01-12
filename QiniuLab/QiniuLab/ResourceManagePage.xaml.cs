@@ -1,12 +1,11 @@
-﻿using Qiniu.Http;
-using Qiniu.Storage;
-using Qiniu.Storage.Model;
-using Qiniu.Util;
-using System;
+﻿using System;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using Qiniu.Common;
+using Qiniu.RS;
+using Qiniu.Http;
 
 namespace QiniuLab
 {
@@ -15,8 +14,9 @@ namespace QiniuLab
     /// </summary>
     public partial class ResourceManagePage : Page
     {
-        private string jsonResultTemplate;
+        //private string jsonResultTemplate;
         private BucketManager bucketManager;
+
         public ResourceManagePage()
         {
             InitializeComponent();
@@ -24,10 +24,10 @@ namespace QiniuLab
 
         private void init()
         {
-            using (StreamReader sr = new StreamReader("Template/JsonFormat.html"))
-            {
-                jsonResultTemplate = sr.ReadToEnd();
-            }
+            //using (StreamReader sr = new StreamReader("Template/JsonFormat.html"))
+            //{
+            //    jsonResultTemplate = sr.ReadToEnd();
+            //}
 
             Mac mac = new Mac(QiniuLab.AppSettings.Default.ACCESS_KEY,
                     QiniuLab.AppSettings.Default.SECRET_KEY);
@@ -45,32 +45,23 @@ namespace QiniuLab
             #region FIX_STAT_ZONE_CONFIG
             try
             {
-                Qiniu.Common.Config.ConfigZoneAuto(AppSettings.Default.ACCESS_KEY, statBucket);
+                Config.autoZone(AppSettings.Default.ACCESS_KEY, statBucket, false);
                 this.StatResponseTextBox.Clear();
             }
             catch (Exception ex)
             {
-                this.StatResponseTextBox.Text = "配置出错，请检查您的输入(如scope/bucket等)\r\n" + ex.Message;
+                this.StatResponseTextBox.Text = "配置出错，请检查您的输入(如密钥/scope/bucket等)\r\n" + ex.Message;
                 return;
             }
             #endregion FIX_STAT_ZONE_CONFIG
             Task.Factory.StartNew(() =>
             {        
-                StatResult statResult = bucketManager.stat(statBucket, statKey);
+                var statResult = bucketManager.stat(statBucket, statKey);
 
                 Dispatcher.BeginInvoke((Action)(() =>
                 {
-                    this.StatResponseTextBox.Text = statResult.Response;
-                    this.StatResponseInfoTextBox.Text = statResult.ResponseInfo.ToString();
-                    if (!string.IsNullOrEmpty(statResult.Response))
-                    {
-                        string formattedResponse = this.jsonResultTemplate.Replace("#{RESPONSE}#", statResult.Response);
-                        this.StatFormatResponseWebBrowser.NavigateToString(formattedResponse);
-                    }
-                    else
-                    {
-                        this.StatFormatResponseWebBrowser.NavigateToString("NO RESPONSE");
-                    }
+                    this.StatResponseTextBox.Text = statResult.Text;
+                    this.StatResponseInfoTextBox.Text = statResult.ToString();
                 }));
             });
         }
@@ -89,12 +80,12 @@ namespace QiniuLab
             #region FIX_COPY_ZONE_CONFIG
             try
             {
-                Qiniu.Common.Config.ConfigZoneAuto(AppSettings.Default.ACCESS_KEY, srcBucket);
+                Config.autoZone(AppSettings.Default.ACCESS_KEY, srcBucket, false);
                 this.CopyResponseTextBox.Clear();
             }
             catch (Exception ex)
             {
-                this.CopyResponseTextBox.Text = "配置出错，请检查您的输入(如scope/bucket等)\r\n" + ex.Message;
+                this.CopyResponseTextBox.Text = "配置出错，请检查您的输入(如密钥/scope/bucket等)\r\n" + ex.Message;
                 return;
             }
             #endregion FIX_COPY_ZONE_CONFIG
@@ -104,17 +95,8 @@ namespace QiniuLab
 
                 Dispatcher.BeginInvoke((Action)(() =>
                 {
-                    this.CopyResponseTextBox.Text = copyResult.Response;
-                    this.CopyResponseInfoTextBox.Text = copyResult.ResponseInfo.ToString();
-                    if (!string.IsNullOrEmpty(copyResult.Response))
-                    {
-                        string formattedResponse = this.jsonResultTemplate.Replace("#{RESPONSE}#", copyResult.Response);
-                        this.CopyFormatResponseWebBrowser.NavigateToString(formattedResponse);
-                    }
-                    else
-                    {
-                        this.CopyFormatResponseWebBrowser.NavigateToString("NO RESPONSE");
-                    }
+                    this.CopyResponseTextBox.Text = copyResult.Text;
+                    this.CopyResponseInfoTextBox.Text = copyResult.ToString();
                 }));
             });
         }
@@ -133,12 +115,12 @@ namespace QiniuLab
             #region FIX_MOVE_ZONE_CONFIG
             try
             {
-                Qiniu.Common.Config.ConfigZoneAuto(AppSettings.Default.ACCESS_KEY, srcBucket);
+                Config.autoZone(AppSettings.Default.ACCESS_KEY, srcBucket, false);
                 this.MoveResponseTextBox.Clear();
             }
             catch (Exception ex)
             {
-                this.MoveResponseTextBox.Text = "配置出错，请检查您的输入(如scope/bucket等)\r\n" + ex.Message;
+                this.MoveResponseTextBox.Text = "配置出错，请检查您的输入(如密钥/scope/bucket等)\r\n" + ex.Message;
                 return;
             }
             #endregion FIX_MOVE_ZONE_CONFIG
@@ -148,17 +130,8 @@ namespace QiniuLab
 
                 Dispatcher.BeginInvoke((Action)(() =>
                 {
-                    this.MoveResponseTextBox.Text = moveResult.Response;
-                    this.MoveResponseInfoTextBox.Text = moveResult.ResponseInfo.ToString();
-                    if (!string.IsNullOrEmpty(moveResult.Response))
-                    {
-                        string formattedResponse = this.jsonResultTemplate.Replace("#{RESPONSE}#", moveResult.Response);
-                        this.MoveFormatResponseWebBrowser.NavigateToString(formattedResponse);
-                    }
-                    else
-                    {
-                        this.MoveFormatResponseWebBrowser.NavigateToString("NO RESPONSE");
-                    }
+                    this.MoveResponseTextBox.Text = moveResult.Text;
+                    this.MoveResponseInfoTextBox.Text = moveResult.ToString();
                 }));
             });
         }
@@ -174,12 +147,12 @@ namespace QiniuLab
             #region FIX_DEL_ZONE_CONFIG
             try
             {
-                Qiniu.Common.Config.ConfigZoneAuto(AppSettings.Default.ACCESS_KEY, deleteBucket);
+                Config.autoZone(AppSettings.Default.ACCESS_KEY, deleteBucket, false);
                 this.DeleteResponseTextBox.Clear();
             }
             catch (Exception ex)
             {
-                this.DeleteResponseTextBox.Text = "配置出错，请检查您的输入(如scope/bucket等)\r\n" + ex.Message;
+                this.DeleteResponseTextBox.Text = "配置出错，请检查您的输入(如密钥/scope/bucket等)\r\n" + ex.Message;
                 return;
             }
             #endregion FIX_DEL_ZONE_CONFIG
@@ -189,17 +162,8 @@ namespace QiniuLab
 
                 Dispatcher.BeginInvoke((Action)(() =>
                 {
-                    this.DeleteResponseTextBox.Text = deleteResult.Response;
-                    this.DeleteResponseInfoTextBox.Text = deleteResult.ResponseInfo.ToString();
-                    if (!string.IsNullOrEmpty(deleteResult.Response))
-                    {
-                        string formattedResponse = this.jsonResultTemplate.Replace("#{RESPONSE}#", deleteResult.Response);
-                        this.DeleteFormatResponseWebBrowser.NavigateToString(formattedResponse);
-                    }
-                    else
-                    {
-                        this.DeleteFormatResponseWebBrowser.NavigateToString("NO RESPONSE");
-                    }
+                    this.DeleteResponseTextBox.Text = deleteResult.Text;
+                    this.DeleteResponseInfoTextBox.Text = deleteResult.ToString();
                 }));
             });
         }
@@ -216,12 +180,12 @@ namespace QiniuLab
             #region FIX_CHGM_ZONE_CONFIG
             try
             {
-                Qiniu.Common.Config.ConfigZoneAuto(AppSettings.Default.ACCESS_KEY, chgmBucket);
+                Config.autoZone(AppSettings.Default.ACCESS_KEY, chgmBucket, false);
                 this.ChgmResponseTextBox.Clear();
             }
             catch (Exception ex)
             {
-                this.ChgmResponseTextBox.Text = "配置出错，请检查您的输入(如scope/bucket等)\r\n" + ex.Message;
+                this.ChgmResponseTextBox.Text = "配置出错，请检查您的输入(如密钥/scope/bucket等)\r\n" + ex.Message;
                 return;
             }
             #endregion FIX_CHGM_ZONE_CONFIG
@@ -231,17 +195,8 @@ namespace QiniuLab
 
                 Dispatcher.BeginInvoke((Action)(() =>
                 {
-                    this.ChgmResponseTextBox.Text = chgmResult.Response;
-                    this.ChgmResponseInfoTextBox.Text = chgmResult.ResponseInfo.ToString();
-                    if (!string.IsNullOrEmpty(chgmResult.Response))
-                    {
-                        string formattedResponse = this.jsonResultTemplate.Replace("#{RESPONSE}#", chgmResult.Response);
-                        this.ChgmFormatResponseWebBrowser.NavigateToString(formattedResponse);
-                    }
-                    else
-                    {
-                        this.ChgmFormatResponseWebBrowser.NavigateToString("NO RESPONSE");
-                    }
+                    this.ChgmResponseTextBox.Text = chgmResult.Text;
+                    this.ChgmResponseInfoTextBox.Text = chgmResult.ToString();
                 }));
             });
         }
@@ -262,12 +217,12 @@ namespace QiniuLab
             #region FIX_FETCH_ZONE_CONFIG
             try
             {
-                Qiniu.Common.Config.ConfigZoneAuto(AppSettings.Default.ACCESS_KEY, bucket);
+                Config.autoZone(AppSettings.Default.ACCESS_KEY, bucket, false);
                 this.FetchResponseTextBox.Clear();
             }
             catch (Exception ex)
             {
-                this.FetchResponseTextBox.Text = "配置出错，请检查您的输入(如scope/bucket等)\r\n" + ex.Message;
+                this.FetchResponseTextBox.Text = "配置出错，请检查您的输入(如密钥/scope/bucket等)\r\n" + ex.Message;
                 return;
             }
             #endregion FIX_FETCH_ZONE_CONFIG
@@ -277,17 +232,8 @@ namespace QiniuLab
 
                 Dispatcher.BeginInvoke((Action)(() =>
                 {
-                    this.FetchResponseTextBox.Text = fetchResult.Response;
-                    this.FetchResponseInfoTextBox.Text = fetchResult.ResponseInfo.ToString();
-                    if (!string.IsNullOrEmpty(fetchResult.Response))
-                    {
-                        string formattedResponse = this.jsonResultTemplate.Replace("#{RESPONSE}#", fetchResult.Response);
-                        this.FetchFormatResponseWebBrowser.NavigateToString(formattedResponse);
-                    }
-                    else
-                    {
-                        this.FetchFormatResponseWebBrowser.NavigateToString("NO RESPONSE");
-                    }
+                    this.FetchResponseTextBox.Text = fetchResult.Text;
+                    this.FetchResponseInfoTextBox.Text = fetchResult.ToString();
                 }));
             });
         }
@@ -303,12 +249,12 @@ namespace QiniuLab
             #region FIX_PREF_ZONE_CONFIG
             try
             {
-                Qiniu.Common.Config.ConfigZoneAuto(AppSettings.Default.ACCESS_KEY,prefetchBucket);
+                Config.autoZone(AppSettings.Default.ACCESS_KEY, prefetchBucket, false);
                 this.PrefetchResponseTextBox.Clear();
             }
             catch (Exception ex)
             {
-                this.PrefetchResponseTextBox.Text = "配置出错，请检查您的输入(如scope/bucket等)\r\n" + ex.Message;
+                this.PrefetchResponseTextBox.Text = "配置出错，请检查您的输入(如密钥/scope/bucket等)\r\n" + ex.Message;
                 return;
             }
             #endregion FIX_PREF_ZONE_CONFIG
@@ -318,17 +264,8 @@ namespace QiniuLab
 
                 Dispatcher.BeginInvoke((Action)(() =>
                 {
-                    this.PrefetchResponseTextBox.Text = prefetchResult.Response;
-                    this.PrefetchResponseInfoTextBox.Text = prefetchResult.ResponseInfo.ToString();
-                    if (!string.IsNullOrEmpty(prefetchResult.Response))
-                    {
-                        string formattedResponse = this.jsonResultTemplate.Replace("#{RESPONSE}#", prefetchResult.Response);
-                        this.PrefetchFormatResponseWebBrowser.NavigateToString(formattedResponse);
-                    }
-                    else
-                    {
-                        this.PrefetchFormatResponseWebBrowser.NavigateToString("NO RESPONSE");
-                    }
+                    this.PrefetchResponseTextBox.Text = prefetchResult.Text;
+                    this.PrefetchResponseInfoTextBox.Text = prefetchResult.ToString();
                 }));
             });
         }
@@ -357,17 +294,8 @@ namespace QiniuLab
                HttpResult batchResult = this.bucketManager.batch(opsa);
                Dispatcher.BeginInvoke((Action)(() =>
                {
-                   this.BatchResponseTextBox.Text = batchResult.Response;
-                   this.BatchResponseInfoTextBox.Text = batchResult.ResponseInfo.ToString();
-                   if (!string.IsNullOrEmpty(batchResult.Response))
-                   {
-                       string formattedResponse = this.jsonResultTemplate.Replace("#{RESPONSE}#", batchResult.Response);
-                       this.BatchFormatResponseWebBrowser.NavigateToString(formattedResponse);
-                   }
-                   else
-                   {
-                       this.BatchFormatResponseWebBrowser.NavigateToString("NO RESPONSE");
-                   }
+                   this.BatchResponseTextBox.Text = batchResult.Text;
+                   this.BatchResponseInfoTextBox.Text = batchResult.ToString();
                }));
            });
         }

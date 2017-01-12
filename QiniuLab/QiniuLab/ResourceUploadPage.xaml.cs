@@ -1,22 +1,14 @@
 ﻿using Microsoft.Win32;
-using Qiniu.Http;
-using Qiniu.Storage;
-using Qiniu.Util;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Qiniu.Common;
+using Qiniu.Util;
+using Qiniu.IO;
+using Qiniu.IO.Model;
 
 namespace QiniuLab
 {
@@ -25,9 +17,10 @@ namespace QiniuLab
     /// </summary>
     public partial class ResourceUploadPage : Page
     {
-        private string jsonResultTemplate;
+        //private string jsonResultTemplate;
         private bool cancelUpload;
         private string mimeType; // 添加 @fengyh
+
         public ResourceUploadPage()
         {
             InitializeComponent();
@@ -39,16 +32,16 @@ namespace QiniuLab
             this.UploadKeyTextBox.IsEnabled = false;
             this.cancelUpload = false;
             this.UploadProgressBar.Visibility = Visibility.Hidden;
-            using (StreamReader sr = new StreamReader("Template/JsonFormat.html"))
-            {
-                jsonResultTemplate = sr.ReadToEnd();
-            }
+            //using (StreamReader sr = new StreamReader("Template/JsonFormat.html"))
+            //{
+            //    jsonResultTemplate = sr.ReadToEnd();
+            //}
         }
 
         private void CreateTokenButton_Click(object sender, RoutedEventArgs e)
         {
             string scope = this.ScopeTextBox.Text;
-            int expires =3600;
+            int expires = 3600;
             try
             {
                 expires = Convert.ToInt32(this.ExpireTextBox.Text.Trim());
@@ -64,7 +57,7 @@ namespace QiniuLab
             int callbackBodyTypeIndex = this.CallbackBodyTypeComboBox.SelectedIndex;
             if (callbackBodyTypeIndex != -1)
             {
-                ComboBoxItem item=(ComboBoxItem)this.CallbackBodyTypeComboBox.SelectedItem;
+                ComboBoxItem item = (ComboBoxItem)this.CallbackBodyTypeComboBox.SelectedItem;
                 callbackBodyType = item.Content.ToString();
             }
             string callbackBody = this.CallbackBodyTextBox.Text;
@@ -72,7 +65,7 @@ namespace QiniuLab
             string persistentOps = this.PersistentOpsTextBox.Text;
             string persistentPipeline = this.PersistentPipelineTextBox.Text;
             string persistentNotifyUrl = this.PersistentNotifyUrlTextBox.Text;
-            int fsizeLimit =-1;
+            int fsizeLimit = -1;
             try
             {
                 fsizeLimit = Convert.ToInt32(this.FsizeLimitTextBox.Text.Trim());
@@ -89,16 +82,16 @@ namespace QiniuLab
             //     PutPolicy.detectMime = DetectMimeCheckBox.IsChecked
             //
             //////////////////////////////////////////////////////////////////////////////////////////////////////
-            int detectMime = 0; 
-            mimeType = this.MimeTypeTextBox.Text.Trim(); 
+            int detectMime = 0;
+            mimeType = this.MimeTypeTextBox.Text.Trim();
             if (mimeType.Length == 0)
             {
-                mimeType = "application/octet-stream"; 
+                mimeType = "application/octet-stream";
                 detectMime = this.DetectMimeCheckBox.IsChecked.Value ? 1 : 0;
             }
 
             string mimeLimit = this.MimeLimitTextBox.Text;
-            
+
             int deleteAfterDays = -1;
             try
             {
@@ -108,7 +101,7 @@ namespace QiniuLab
 
             PutPolicy putPolicy = new PutPolicy();
             putPolicy.Scope = scope;
-            putPolicy.SetExpires(expires);
+            putPolicy.setExpires(expires);
             if (insertOnly != 0)
             {
                 putPolicy.InsertOnly = insertOnly;
@@ -178,24 +171,24 @@ namespace QiniuLab
             #region FIX_ADD_ZONE_CONFIG
             try
             {
-                string bucket=scope;
-                int pos=scope.IndexOf(':');
-                if(pos>0)
+                string bucket = scope;
+                int pos = scope.IndexOf(':');
+                if (pos > 0)
                 {
-                    bucket=scope.Remove(pos);
+                    bucket = scope.Remove(pos);
                 }
 
-                Qiniu.Common.Config.ConfigZoneAuto(AppSettings.Default.ACCESS_KEY, bucket);
+                Config.autoZone(AppSettings.Default.ACCESS_KEY, bucket, false);
                 this.UploadResponseTextBox.Clear();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                this.UploadResponseTextBox.Text = "配置出错，请检查您的输入(如scope/bucket等)\r\n" + ex.Message;
+                this.UploadResponseTextBox.Text = "配置出错，请检查您的输入(如密钥/scope/bucket等)\r\n" + ex.Message;
                 return;
             }
             #endregion FIX_ADD_ZONE_CONFIG
             Mac mac = new Mac(accessKey, secretKey);
-            string uploadToken = Auth.createUploadToken(putPolicy, mac);
+            string uploadToken = UploadManager.createUploadToken(mac, putPolicy);
             this.UploadTokenTextBox.Text = uploadToken;
         }
 
@@ -222,7 +215,7 @@ namespace QiniuLab
 
             // 移动代码(UploadButton_Click-->CreateTokenButton_Click) @fengyh, 2016-08-17-11:29
             //string mimeType = this.MimeTypeTextBox.Text.Trim(); 
-         
+
             bool checkCrc32 = false;
             checkCrc32 = this.CheckCrc32CheckBox.IsChecked.Value;
             // 移动代码(UploadButton_Click-->CreateTokenButton_Click) @fengyh, 2016-08-17-11:29
@@ -239,27 +232,25 @@ namespace QiniuLab
             string extraParamKey3 = this.ExtraParamKeyTextBox3.Text.Trim();
             string extraParamValue3 = this.ExtraParamValueTextBox3.Text.Trim();
 
-            string recordDir = "temp";
             string recordKey = null;
 
             //update status
             this.cancelUpload = false;
             this.UploadProgressBar.Visibility = Visibility.Visible;
+
             //start upload
             Task.Factory.StartNew(() =>
             {
-                string qetag = QETag.hash(filePath);
+                string qetag = QETag.calcHash(filePath);
                 if (key == null)
                 {
-                    recordKey = StringUtils.urlSafeBase64Encode(qetag);
+                    recordKey = StringHelper.urlSafeBase64Encode(qetag);
                 }
                 else
                 {
-                    recordKey = StringUtils.urlSafeBase64Encode(key + qetag);
+                    recordKey = StringHelper.urlSafeBase64Encode(key + qetag);
                 }
 
-                UploadManager uploader = new UploadManager(new Qiniu.Storage.Persistent.ResumeRecorder(recordDir),
-                    new Qiniu.Storage.Persistent.KeyGenerator(delegate() { return recordKey; }));
                 Dictionary<string, string> extraParams = new Dictionary<string, string>();
                 if (!extraParams.ContainsKey(extraParamKey1))
                 {
@@ -274,37 +265,39 @@ namespace QiniuLab
                     extraParams.Add(extraParamKey3, extraParamValue3);
                 }
 
-                UpProgressHandler upProgressHandler = new UpProgressHandler(delegate(string upKey, double percent)
+                System.IO.FileInfo fi = new FileInfo(filePath);
+
+                Qiniu.Http.HttpResult result = new Qiniu.Http.HttpResult();
+
+                if (fi.Length > 4 * 1024 * 1024)
                 {
-                    Dispatcher.BeginInvoke((Action)(() =>
+                    UploadProgressHandler upph = delegate (long u, long t)
                     {
-                        this.UploadProgressBar.Value = (int)(percent * 100);
-                    }));
-                });
-                UpCancellationSignal upCancellationSignal = new UpCancellationSignal(delegate()
-                {
-                    return this.cancelUpload;
-                });
-                UpCompletionHandler upCompletionHandler = new UpCompletionHandler(delegate(string upKey, ResponseInfo respInfo, string response)
-                {
-                    Dispatcher.BeginInvoke((Action)(() =>
-                    {
-                        this.UploadResponseTextBox.Text = response;
-                        this.UploadResponseInfoTextBox.Text = respInfo.ToString();
-                        if (!string.IsNullOrEmpty(response))
+                        Dispatcher.BeginInvoke((Action)(() =>
                         {
-                            string formattedResponse = this.jsonResultTemplate.Replace("#{RESPONSE}#", response);
-                            this.UploadFormatResponseWebBrowser.NavigateToString(formattedResponse);
-                        }
-                        else
-                        {
-                            this.UploadFormatResponseWebBrowser.NavigateToString("NO RESPONSE");
-                        }
-                        this.UploadProgressBar.Visibility = Visibility.Hidden;
-                    }));
-                });
-                UploadOptions uploadOptions = new UploadOptions(extraParams, mimeType, checkCrc32, upProgressHandler, upCancellationSignal);
-                uploader.uploadFile(filePath, key, uploadToken, uploadOptions, upCompletionHandler);
+                            this.UploadProgressBar.Value = (int)(100.0 * u / t);
+                        }));
+                    };
+
+                    UploadController upc = new UploadController(UploadControl);
+
+                    ResumableUploader uploader = new ResumableUploader();
+
+                    result = uploader.uploadFile(filePath, key, uploadToken, recordKey, 1, upph, upc, extraParams);
+                }
+
+                else
+                {
+                    SimpleUploader su = new SimpleUploader();
+                    result = su.uploadFile(filePath, key, uploadToken);
+                }
+
+                Dispatcher.BeginInvoke((Action)(() =>
+                {
+                    this.UploadResponseTextBox.Text = result.Text;
+                    this.UploadResponseInfoTextBox.Text = result.ToString();
+                }));               
+
             });
         }
 
@@ -312,7 +305,7 @@ namespace QiniuLab
         {
             OpenFileDialog dlg = new OpenFileDialog();
             dlg.ShowReadOnly = true;
-            bool? dr=dlg.ShowDialog();
+            bool? dr = dlg.ShowDialog();
             if (dr.GetValueOrDefault(false))
             {
                 this.UploadFileTextBox.Text = dlg.FileName;
@@ -328,5 +321,18 @@ namespace QiniuLab
         {
             this.cancelUpload = true;
         }
+
+        private UPTS UploadControl()
+        {
+            if (this.cancelUpload)
+            {
+                return UPTS.Aborted;
+            }
+            else
+            {
+                return UPTS.Activated;
+            }
+        }
+
     }
 }

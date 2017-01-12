@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Qiniu.Common;
+using Qiniu.IO;
 
 namespace QiniuLab
 {
@@ -64,9 +66,9 @@ namespace QiniuLab
                 {
                     srcUrl += "?e=" + deadline;
                 }
-                Mac mac = new Mac(QiniuLab.AppSettings.Default.ACCESS_KEY,
-                    QiniuLab.AppSettings.Default.SECRET_KEY);
-                string token = Auth.createDownloadToken(srcUrl, mac);
+                Mac mac = new Mac(AppSettings.Default.ACCESS_KEY,AppSettings.Default.SECRET_KEY);
+                DownloadManager dx = new DownloadManager(mac);
+                string token = dx.createDownloadToken(srcUrl);
                 srcUrl += "&token=" + token;
                 this.AuthedUrlTextBox.Text = srcUrl;
             }

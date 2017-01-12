@@ -1,20 +1,11 @@
-﻿using Qiniu.Processing;
-using Qiniu.Util;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Qiniu.Common;
+using Qiniu.RSF;
+using Qiniu.RSF.Model;
 
 namespace QiniuLab
 {
@@ -23,20 +14,20 @@ namespace QiniuLab
     /// </summary>
     public partial class ResourcePfopPage : Page
     {
-        private string prefopResultTemplate;
+        //private string prefopResultTemplate;
         public ResourcePfopPage()
         {
             InitializeComponent();
-            this.init();
+            //this.init();
         }
 
-        private void init()
-        {
-            using (StreamReader sr = new StreamReader("Template/JsonFormat.html"))
-            {
-                prefopResultTemplate = sr.ReadToEnd();
-            }
-        }
+        //private void init()
+        //{
+        //    using (StreamReader sr = new StreamReader("Template/JsonFormat.html"))
+        //    {
+        //        prefopResultTemplate = sr.ReadToEnd();
+        //    }
+        //}
 
         private void PfopButton_Click(object sender, RoutedEventArgs e)
         {
@@ -50,12 +41,12 @@ namespace QiniuLab
             #region FIX_PFOP_ZONE_CONFIG
             try
             {
-                Qiniu.Common.Config.ConfigZoneAuto(AppSettings.Default.ACCESS_KEY, bucket);
+                Config.autoZone(AppSettings.Default.ACCESS_KEY, bucket, false);
                 this.PfopResponseTextBox.Clear();
             }
             catch (Exception ex)
             {
-                this.PfopResponseTextBox.Text = "配置出错，请检查您的输入(如scope/bucket等)\r\n" + ex.Message;
+                this.PfopResponseTextBox.Text = "配置出错，请检查您的输入(如密钥/scope/bucket等)\r\n" + ex.Message;
                 return;
             }
             #endregion FIX_PFOP_ZONE_CONFIG
@@ -65,10 +56,9 @@ namespace QiniuLab
 
             Task.Factory.StartNew(() =>
             {
-                Mac mac = new Mac(QiniuLab.AppSettings.Default.ACCESS_KEY,
-                    QiniuLab.AppSettings.Default.SECRET_KEY);
-                Pfop pfop = new Pfop(mac);
-                PfopResult pfopResult = pfop.pfop(bucket, key, fops.Split(';'), pipeline, notifyURL, force);
+                Mac mac = new Mac(AppSettings.Default.ACCESS_KEY,AppSettings.Default.SECRET_KEY);
+                OperationManager ox = new OperationManager(mac);
+                PfopResult pfopResult = ox.pfop(bucket, key, fops.Split(';'), pipeline, notifyURL, force);
 
                 Dispatcher.BeginInvoke((Action)(() =>
                 {
@@ -77,8 +67,8 @@ namespace QiniuLab
                         this.PersistentIdTextBox.Text = pfopResult.PersistentId;
                     }
 
-                    this.PfopResponseTextBox.Text = pfopResult.Response;
-                    this.PfopResponseInfoTextBox.Text = pfopResult.ResponseInfo.ToString();
+                    this.PfopResponseTextBox.Text = pfopResult.Text;
+                    this.PfopResponseInfoTextBox.Text = pfopResult.ToString();
                 }));
             });
         }
@@ -92,14 +82,14 @@ namespace QiniuLab
             }
             Task.Factory.StartNew(() =>
             {
-                Prefop prefop = new Prefop(persistentId);
-                PrefopResult result = prefop.prefop();
+                Mac mac = new Mac(AppSettings.Default.ACCESS_KEY, AppSettings.Default.SECRET_KEY);
+                OperationManager ox = new OperationManager(mac);
+                var result = ox.prefop(persistentId);
+
                 Dispatcher.BeginInvoke((Action)(() =>
                 {
-                    this.PrefopResponseTextBox.Text = result.Response;
-                    this.PrefopResponseInfoTextBox.Text = result.ResponseInfo.ToString();
-                    string formattedResponse = this.prefopResultTemplate.Replace("#{RESPONSE}#", result.Response);
-                    this.PrefopFormatResponseWebBrowser.NavigateToString(formattedResponse);
+                    this.PrefopResponseTextBox.Text = result.Text;
+                    this.PrefopResponseInfoTextBox.Text = result.ToString();
                 }));
             });
         }

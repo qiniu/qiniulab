@@ -2,7 +2,7 @@
 
 ##简介
 
-最新版本下载[QiniuLab-v1.3](http://devtools.qiniu.com/QiniuLab-v1.3.zip)
+最新版本下载[QiniuLab-v1.4](http://devtools.qiniu.com/QiniuLab-v1.4.zip)
 
 ![01](docs/imgs/fusion-00.png)
 

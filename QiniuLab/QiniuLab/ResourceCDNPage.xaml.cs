@@ -1,19 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Qiniu.Util;
-using Qiniu.Fusion;
-using Qiniu.Fusion.Model;
+using Qiniu.Common;
+using Qiniu.CDN;
+using Qiniu.CDN.Model;
 
 namespace QiniuLab
 {
@@ -67,7 +56,7 @@ namespace QiniuLab
             RefreshRequest request = new RefreshRequest();
             request.AddUrls(rURLs.Split(';'));
             request.AddDirs(rDIRs.Split(';'));
-            var result = fusionMgr.Refresh(request);
+            var result = fusionMgr.refresh(request);
 
             TextBox_FusionRefreshResponse.Text = result.ToString();
         }
@@ -83,7 +72,7 @@ namespace QiniuLab
 
             PrefetchRequest request = new PrefetchRequest();
             request.AddUrls(rURLs.Split(';'));
-            var result = fusionMgr.Prefetch(request);
+            var result = fusionMgr.prefetch(request);
 
             TextBox_FusionPrefetchResponse.Text = result.ToString();
         }
@@ -101,7 +90,7 @@ namespace QiniuLab
             string granularity = TextBox_FusionBandwidthGranularity.Text.Trim();
 
             BandwidthRequest request = new BandwidthRequest(startDate,endDate,granularity,domains);
-            var result = fusionMgr.Bandwidth(request);
+            var result = fusionMgr.bandwidth(request);
 
             TextBox_FusionBandwidthResponse.Text = result.ToString();
         }
@@ -119,7 +108,7 @@ namespace QiniuLab
             string granularity = TextBox_FusionBandwidthGranularity.Text.Trim();
 
             FluxRequest request = new FluxRequest(startDate, endDate, granularity, domains);
-            var result = fusionMgr.Flux(request);
+            var result = fusionMgr.flux(request);
 
             TextBox_FusionFluxResponse.Text = result.ToString();
         }
@@ -135,7 +124,7 @@ namespace QiniuLab
             string day = TextBox_FusionLoglistDay.Text.Trim();
 
             LogListRequest request = new LogListRequest(day, domains);
-            var result = fusionMgr.LogList(request);
+            var result = fusionMgr.logList(request);
 
             TextBox_FusionLogListResponse.Text = result.ToString();
         }
@@ -162,7 +151,7 @@ namespace QiniuLab
             request.Timestamp = timestamp;
             request.Key=key;
 
-            var result = fusionMgr.HotLink(request);
+            var result = fusionMgr.hotLink(request);
 
             TextBox_FusionHotLinkResponse.Text = result.ToString();
         }
