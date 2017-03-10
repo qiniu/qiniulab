@@ -67,8 +67,7 @@ namespace QiniuLab
                     srcUrl += "?e=" + deadline;
                 }
                 Mac mac = new Mac(AppSettings.Default.ACCESS_KEY,AppSettings.Default.SECRET_KEY);
-                DownloadManager dx = new DownloadManager(mac);
-                string token = dx.createDownloadToken(srcUrl);
+                string token = Qiniu.Util.Auth.CreateDownloadToken(mac, srcUrl);
                 srcUrl += "&token=" + token;
                 this.AuthedUrlTextBox.Text = srcUrl;
             }

@@ -1,7 +1,7 @@
 ﻿<Window x:Class="QiniuLab.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="七牛云存储-最专业的云存储服务提供商" Height="800" Width="1200"
+        Height="800" Width="1200"
         Icon="qiniu.ico"
         >
     <Grid>

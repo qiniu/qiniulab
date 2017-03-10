@@ -29,24 +29,30 @@ namespace QiniuLab
 
         private void init()
         {
+            this.ExpireTextBox.Text = "3600";
             this.UploadKeyTextBox.IsEnabled = false;
             this.cancelUpload = false;
             this.UploadProgressBar.Visibility = Visibility.Hidden;
-            //using (StreamReader sr = new StreamReader("Template/JsonFormat.html"))
-            //{
-            //    jsonResultTemplate = sr.ReadToEnd();
-            //}
         }
 
         private void CreateTokenButton_Click(object sender, RoutedEventArgs e)
         {
-            string scope = this.ScopeTextBox.Text;
-            int expires = 3600;
-            try
+            string scope = this.ScopeTextBox.Text.Trim();
+            int expire = 3600;
+           
+            if(string.IsNullOrEmpty(scope))
             {
-                expires = Convert.ToInt32(this.ExpireTextBox.Text.Trim());
+                TextBox_UploadResultText.Text = "配置出错，请输入正确的Scope\r\n";
+                return;
             }
-            catch (Exception) { }
+
+            bool ok = int.TryParse(this.ExpireTextBox.Text.Trim(), out expire);
+            if(!ok || expire<0)
+            {
+                TextBox_UploadResultText.Text = "配置出错，请输入正确的expire\r\n";
+                return;
+            }
+
             int insertOnly = this.InsertOnlyCheckBox.IsChecked.Value ? 1 : 0;
             string saveKey = this.SaveKeyTextBox.Text;
             string endUser = this.EndUserTextBox.Text;
@@ -93,15 +99,17 @@ namespace QiniuLab
             string mimeLimit = this.MimeLimitTextBox.Text;
 
             int deleteAfterDays = -1;
-            try
+            bool deleteAfterDaysOK = int.TryParse(this.DeleteAfterDaysTextBox.Text.Trim(), out deleteAfterDays);
+
+            if(deleteAfterDaysOK && deleteAfterDays<=0)
             {
-                deleteAfterDays = Convert.ToInt32(this.DeleteAfterDaysTextBox.Text.Trim());
+                TextBox_UploadResultText.Text = "配置出错，请输入正确的deleteAfterDays\r\n";
+                return;
             }
-            catch (Exception) { }
 
             PutPolicy putPolicy = new PutPolicy();
             putPolicy.Scope = scope;
-            putPolicy.setExpires(expires);
+            putPolicy.SetExpires(expire);
             if (insertOnly != 0)
             {
                 putPolicy.InsertOnly = insertOnly;
@@ -178,17 +186,17 @@ namespace QiniuLab
                     bucket = scope.Remove(pos);
                 }
 
-                Config.autoZone(AppSettings.Default.ACCESS_KEY, bucket, false);
-                this.UploadResponseTextBox.Clear();
+                Config.AutoZone(AppSettings.Default.ACCESS_KEY, bucket, false);
+                TextBox_UploadResultText.Clear();
             }
             catch (Exception ex)
             {
-                this.UploadResponseTextBox.Text = "配置出错，请检查您的输入(如密钥/scope/bucket等)\r\n" + ex.Message;
+                TextBox_UploadResultText.Text = "配置出错，请检查您的输入(如密钥/scope/bucket等)\r\n" + ex.Message;
                 return;
             }
             #endregion FIX_ADD_ZONE_CONFIG
             Mac mac = new Mac(accessKey, secretKey);
-            string uploadToken = UploadManager.createUploadToken(mac, putPolicy);
+            string uploadToken = Qiniu.Util.Auth.CreateUploadToken(mac, putPolicy.ToJsonString());
             this.UploadTokenTextBox.Text = uploadToken;
         }
 
@@ -241,14 +249,14 @@ namespace QiniuLab
             //start upload
             Task.Factory.StartNew(() =>
             {
-                string qetag = QETag.calcHash(filePath);
+                string qetag = ETag.CalcHash(filePath);
                 if (key == null)
                 {
-                    recordKey = StringHelper.urlSafeBase64Encode(qetag);
+                    recordKey = Base64.UrlSafeBase64Encode(qetag);
                 }
                 else
                 {
-                    recordKey = StringHelper.urlSafeBase64Encode(key + qetag);
+                    recordKey = Base64.UrlSafeBase64Encode(key + qetag);
                 }
 
                 Dictionary<string, string> extraParams = new Dictionary<string, string>();
@@ -283,19 +291,19 @@ namespace QiniuLab
 
                     ResumableUploader uploader = new ResumableUploader();
 
-                    result = uploader.uploadFile(filePath, key, uploadToken, recordKey, 1, upph, upc, extraParams);
+                    result = uploader.UploadFile(filePath, key, uploadToken, recordKey, 1, upph, upc, extraParams);
                 }
 
                 else
                 {
-                    SimpleUploader su = new SimpleUploader();
-                    result = su.uploadFile(filePath, key, uploadToken);
+                    FormUploader fu = new FormUploader();
+                    result = fu.UploadFile(filePath, key, uploadToken, extraParams);
                 }
 
                 Dispatcher.BeginInvoke((Action)(() =>
                 {
-                    this.UploadResponseTextBox.Text = result.Text;
-                    this.UploadResponseInfoTextBox.Text = result.ToString();
+                    this.TextBox_UploadResultText.Text = result.Text;
+                    this.TextBox_UploadResultString.Text = result.ToString();
                 }));               
 
             });

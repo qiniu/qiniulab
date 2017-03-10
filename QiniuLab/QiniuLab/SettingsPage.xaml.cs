@@ -24,6 +24,9 @@ namespace QiniuLab
             InitializeComponent();
             this.AccessKeyTextBox.Text = QiniuLab.AppSettings.Default.ACCESS_KEY;
             this.SecretKeyTextBox.Text = QiniuLab.AppSettings.Default.SECRET_KEY;
+
+            this.SecretKeyTextBox.Visibility = Visibility.Hidden;
+            this.SKVisButton.Content = "显示";
         }
 
         private void SaveSettingsButton_Click(object sender, RoutedEventArgs e)
@@ -41,14 +44,14 @@ namespace QiniuLab
         /// <param name="e"></param>
         private void SKVisButton_Click(object sender, RoutedEventArgs e)
         {
-            if (this.SecretKeyTextBox.Visibility == Visibility.Collapsed)
+            if (this.SecretKeyTextBox.Visibility == Visibility.Hidden)
             {
                 this.SecretKeyTextBox.Visibility = Visibility.Visible;
                 this.SKVisButton.Content = "隐藏";
             }
             else
             {
-                this.SecretKeyTextBox.Visibility = Visibility.Collapsed;
+                this.SecretKeyTextBox.Visibility = Visibility.Hidden;
                 this.SKVisButton.Content = "显示";
             }
         }

@@ -244,13 +244,13 @@
                                 Margin="5" Grid.Column="0" Click="CancelButton_Click"></Button>
             </StackPanel>
         </StackPanel>
-        <GroupBox Header="上传回复" Margin="6">
-            <TabControl Margin="6">
-                <TabItem Header="内容">
-                    <TextBox x:Name="UploadResponseTextBox" Height="200" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
+        <GroupBox Header="回复" Margin="6">
+            <TabControl Margin="6" MinHeight="200">
+                <TabItem Header="消息内容">
+                    <TextBox x:Name="TextBox_UploadResultText" Height="200" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
                 </TabItem>
-                <TabItem Header="信息">
-                    <TextBox x:Name="UploadResponseInfoTextBox" Height="200" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
+                <TabItem Header="完整信息">
+                    <TextBox x:Name="TextBox_UploadResultString" Height="200" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
                 </TabItem>
             </TabControl>
         </GroupBox>
