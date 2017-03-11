@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using Qiniu.Common;
+using Qiniu.Util;
 using Qiniu.RS;
 using Qiniu.Http;
 
@@ -45,23 +46,23 @@ namespace QiniuLab
             #region FIX_STAT_ZONE_CONFIG
             try
             {
-                Config.autoZone(AppSettings.Default.ACCESS_KEY, statBucket, false);
-                this.StatResponseTextBox.Clear();
+                Config.AutoZone(AppSettings.Default.ACCESS_KEY, statBucket, false);
+                this.TextBox_StatResultText.Clear();
             }
             catch (Exception ex)
             {
-                this.StatResponseTextBox.Text = "配置出错，请检查您的输入(如密钥/scope/bucket等)\r\n" + ex.Message;
+                this.TextBox_StatResultText.Text = "配置出错，请检查您的输入(如密钥/scope/bucket等)\r\n" + ex.Message;
                 return;
             }
             #endregion FIX_STAT_ZONE_CONFIG
             Task.Factory.StartNew(() =>
             {        
-                var statResult = bucketManager.stat(statBucket, statKey);
+                var statResult = bucketManager.Stat(statBucket, statKey);
 
                 Dispatcher.BeginInvoke((Action)(() =>
                 {
-                    this.StatResponseTextBox.Text = statResult.Text;
-                    this.StatResponseInfoTextBox.Text = statResult.ToString();
+                    this.TextBox_StatResultText.Text = statResult.Text;
+                    this.TextBox_StatResultString.Text = statResult.ToString();
                 }));
             });
         }
@@ -80,23 +81,23 @@ namespace QiniuLab
             #region FIX_COPY_ZONE_CONFIG
             try
             {
-                Config.autoZone(AppSettings.Default.ACCESS_KEY, srcBucket, false);
-                this.CopyResponseTextBox.Clear();
+                Config.AutoZone(AppSettings.Default.ACCESS_KEY, srcBucket, false);
+                this.TextBox_CopyResultText.Clear();
             }
             catch (Exception ex)
             {
-                this.CopyResponseTextBox.Text = "配置出错，请检查您的输入(如密钥/scope/bucket等)\r\n" + ex.Message;
+                this.TextBox_CopyResultText.Text = "配置出错，请检查您的输入(如密钥/scope/bucket等)\r\n" + ex.Message;
                 return;
             }
             #endregion FIX_COPY_ZONE_CONFIG
             Task.Factory.StartNew(() =>
             {
-               HttpResult copyResult = this.bucketManager.copy(srcBucket, srcKey, destBucket, destKey);
+               HttpResult copyResult = this.bucketManager.Copy(srcBucket, srcKey, destBucket, destKey);
 
                 Dispatcher.BeginInvoke((Action)(() =>
                 {
-                    this.CopyResponseTextBox.Text = copyResult.Text;
-                    this.CopyResponseInfoTextBox.Text = copyResult.ToString();
+                    this.TextBox_CopyResultText.Text = copyResult.Text;
+                    this.TextBox_CopyResultString.Text = copyResult.ToString();
                 }));
             });
         }
@@ -115,23 +116,23 @@ namespace QiniuLab
             #region FIX_MOVE_ZONE_CONFIG
             try
             {
-                Config.autoZone(AppSettings.Default.ACCESS_KEY, srcBucket, false);
-                this.MoveResponseTextBox.Clear();
+                Config.AutoZone(AppSettings.Default.ACCESS_KEY, srcBucket, false);
+                this.TextBox_MoveResultText.Clear();
             }
             catch (Exception ex)
             {
-                this.MoveResponseTextBox.Text = "配置出错，请检查您的输入(如密钥/scope/bucket等)\r\n" + ex.Message;
+                this.TextBox_MoveResultText.Text = "配置出错，请检查您的输入(如密钥/scope/bucket等)\r\n" + ex.Message;
                 return;
             }
             #endregion FIX_MOVE_ZONE_CONFIG
             Task.Factory.StartNew(() =>
             {
-                HttpResult moveResult = this.bucketManager.move(srcBucket, srcKey, destBucket, destKey);
+                HttpResult moveResult = this.bucketManager.Move(srcBucket, srcKey, destBucket, destKey);
 
                 Dispatcher.BeginInvoke((Action)(() =>
                 {
-                    this.MoveResponseTextBox.Text = moveResult.Text;
-                    this.MoveResponseInfoTextBox.Text = moveResult.ToString();
+                    this.TextBox_MoveResultText.Text = moveResult.Text;
+                    this.TextBox_MoveResultString.Text = moveResult.ToString();
                 }));
             });
         }
@@ -147,23 +148,23 @@ namespace QiniuLab
             #region FIX_DEL_ZONE_CONFIG
             try
             {
-                Config.autoZone(AppSettings.Default.ACCESS_KEY, deleteBucket, false);
-                this.DeleteResponseTextBox.Clear();
+                Config.AutoZone(AppSettings.Default.ACCESS_KEY, deleteBucket, false);
+                this.TextBox_DeleteResultText.Clear();
             }
             catch (Exception ex)
             {
-                this.DeleteResponseTextBox.Text = "配置出错，请检查您的输入(如密钥/scope/bucket等)\r\n" + ex.Message;
+                this.TextBox_DeleteResultText.Text = "配置出错，请检查您的输入(如密钥/scope/bucket等)\r\n" + ex.Message;
                 return;
             }
             #endregion FIX_DEL_ZONE_CONFIG
             Task.Factory.StartNew(() =>
             {
-                HttpResult deleteResult = this.bucketManager.delete(deleteBucket, deleteKey);
+                HttpResult deleteResult = this.bucketManager.Delete(deleteBucket, deleteKey);
 
                 Dispatcher.BeginInvoke((Action)(() =>
                 {
-                    this.DeleteResponseTextBox.Text = deleteResult.Text;
-                    this.DeleteResponseInfoTextBox.Text = deleteResult.ToString();
+                    this.TextBox_DeleteResultText.Text = deleteResult.Text;
+                    this.TextBox_DeleteResultString.Text = deleteResult.ToString();
                 }));
             });
         }
@@ -180,23 +181,23 @@ namespace QiniuLab
             #region FIX_CHGM_ZONE_CONFIG
             try
             {
-                Config.autoZone(AppSettings.Default.ACCESS_KEY, chgmBucket, false);
-                this.ChgmResponseTextBox.Clear();
+                Config.AutoZone(AppSettings.Default.ACCESS_KEY, chgmBucket, false);
+                this.TextBox_ChgmResultText.Clear();
             }
             catch (Exception ex)
             {
-                this.ChgmResponseTextBox.Text = "配置出错，请检查您的输入(如密钥/scope/bucket等)\r\n" + ex.Message;
+                this.TextBox_ChgmResultText.Text = "配置出错，请检查您的输入(如密钥/scope/bucket等)\r\n" + ex.Message;
                 return;
             }
             #endregion FIX_CHGM_ZONE_CONFIG
             Task.Factory.StartNew(() =>
             {
-                HttpResult chgmResult = this.bucketManager.chgm(chgmBucket, chgmKey, chgmMimeType);
+                HttpResult chgmResult = this.bucketManager.Chgm(chgmBucket, chgmKey, chgmMimeType);
 
                 Dispatcher.BeginInvoke((Action)(() =>
                 {
-                    this.ChgmResponseTextBox.Text = chgmResult.Text;
-                    this.ChgmResponseInfoTextBox.Text = chgmResult.ToString();
+                    this.TextBox_ChgmResultText.Text = chgmResult.Text;
+                    this.TextBox_ChgmResultString.Text = chgmResult.ToString();
                 }));
             });
         }
@@ -217,23 +218,23 @@ namespace QiniuLab
             #region FIX_FETCH_ZONE_CONFIG
             try
             {
-                Config.autoZone(AppSettings.Default.ACCESS_KEY, bucket, false);
-                this.FetchResponseTextBox.Clear();
+                Config.AutoZone(AppSettings.Default.ACCESS_KEY, bucket, false);
+                this.TextBox_FetchResultText.Clear();
             }
             catch (Exception ex)
             {
-                this.FetchResponseTextBox.Text = "配置出错，请检查您的输入(如密钥/scope/bucket等)\r\n" + ex.Message;
+                this.TextBox_FetchResultText.Text = "配置出错，请检查您的输入(如密钥/scope/bucket等)\r\n" + ex.Message;
                 return;
             }
             #endregion FIX_FETCH_ZONE_CONFIG
             Task.Factory.StartNew(() =>
             {
-                HttpResult fetchResult = this.bucketManager.fetch(url, bucket, key);
+                HttpResult fetchResult = this.bucketManager.Fetch(url, bucket, key);
 
                 Dispatcher.BeginInvoke((Action)(() =>
                 {
-                    this.FetchResponseTextBox.Text = fetchResult.Text;
-                    this.FetchResponseInfoTextBox.Text = fetchResult.ToString();
+                    this.TextBox_DeleteResultText.Text = fetchResult.Text;
+                    this.TextBox_FetchResultString.Text = fetchResult.ToString();
                 }));
             });
         }
@@ -249,23 +250,23 @@ namespace QiniuLab
             #region FIX_PREF_ZONE_CONFIG
             try
             {
-                Config.autoZone(AppSettings.Default.ACCESS_KEY, prefetchBucket, false);
-                this.PrefetchResponseTextBox.Clear();
+                Config.AutoZone(AppSettings.Default.ACCESS_KEY, prefetchBucket, false);
+                this.TextBox_PrefetchResultText.Clear();
             }
             catch (Exception ex)
             {
-                this.PrefetchResponseTextBox.Text = "配置出错，请检查您的输入(如密钥/scope/bucket等)\r\n" + ex.Message;
+                this.TextBox_PrefetchResultText.Text = "配置出错，请检查您的输入(如密钥/scope/bucket等)\r\n" + ex.Message;
                 return;
             }
             #endregion FIX_PREF_ZONE_CONFIG
             Task.Factory.StartNew(() =>
             {
-                HttpResult prefetchResult = this.bucketManager.prefetch(prefetchBucket, prefetchKey);
+                HttpResult prefetchResult = this.bucketManager.Prefetch(prefetchBucket, prefetchKey);
 
                 Dispatcher.BeginInvoke((Action)(() =>
                 {
-                    this.PrefetchResponseTextBox.Text = prefetchResult.Text;
-                    this.PrefetchResponseInfoTextBox.Text = prefetchResult.ToString();
+                    this.TextBox_PrefetchResultText.Text = prefetchResult.Text;
+                    this.TextBox_PrefetchResultString.Text = prefetchResult.ToString();
                 }));
             });
         }
@@ -291,11 +292,11 @@ namespace QiniuLab
             string opsa = "op=" + ops3.Replace("\r\n","&op=");
             Task.Factory.StartNew(() =>
            {
-               HttpResult batchResult = this.bucketManager.batch(opsa);
+               HttpResult batchResult = this.bucketManager.Batch(opsa);
                Dispatcher.BeginInvoke((Action)(() =>
                {
-                   this.BatchResponseTextBox.Text = batchResult.Text;
-                   this.BatchResponseInfoTextBox.Text = batchResult.ToString();
+                   this.TextBox_BatchResultText.Text = batchResult.Text;
+                   this.TextBox_BatchResultString.Text = batchResult.ToString();
                }));
            });
         }
@@ -304,7 +305,7 @@ namespace QiniuLab
         {
             string statBucket = this.StatBucketTextBox.Text.Trim();
             string statKey = this.StatKeyTextBox.Text.Trim();
-            string op =this.bucketManager.statOp(statBucket, statKey);
+            string op =this.bucketManager.StatOp(statBucket, statKey);
             this.StatCmdResultTextBox.Text = op;
         }
 
@@ -315,7 +316,7 @@ namespace QiniuLab
             string destBucket = this.CopyDestBucketTextBox.Text.Trim();
             string destKey = this.CopyDestKeyTextBox.Text.Trim();
             bool force = (bool)this.CopyForceOverwrite.IsChecked; // ADD 'force' 2016-08-17 16:17
-            string op = this.bucketManager.copyOp(srcBucket, srcKey, destBucket, destKey,force); // 'force'
+            string op = this.bucketManager.CopyOp(srcBucket, srcKey, destBucket, destKey,force); // 'force'
             this.CopyCmdResultTextBox.Text = op;
         }
 
@@ -326,7 +327,7 @@ namespace QiniuLab
             string destBucket = this.MoveDestBucketTextBox.Text.Trim();
             string destKey = this.MoveDestKeyTextBox.Text.Trim();
             bool force = (bool)this.CopyForceOverwrite.IsChecked; // ADD 'force' 2016-08-17 16:17
-            string op = this.bucketManager.moveOp(srcBucket, srcKey, destBucket, destKey,force); // 'force'
+            string op = this.bucketManager.MoveOp(srcBucket, srcKey, destBucket, destKey,force); // 'force'
             this.MoveCmdResultTextBox.Text = op;
         }
 
@@ -334,7 +335,7 @@ namespace QiniuLab
         {
             string deleteBucket = this.DeleteBucketTextBox.Text.Trim();
             string deleteKey = this.DeleteKeyTextBox.Text.Trim();
-            string op = this.bucketManager.deleteOp(deleteBucket, deleteKey);
+            string op = this.bucketManager.DeleteOp(deleteBucket, deleteKey);
             this.DeleteCmdResultTextBox.Text = op;
         }
 
@@ -343,7 +344,7 @@ namespace QiniuLab
             string chgmBucket = this.ChgmBucketTextBox.Text.Trim();
             string chgmKey = this.ChgmKeyTextBox.Text.Trim();
             string chgmMimeType = this.ChgmMimeTypeTextBox.Text.Trim();
-            string op =this.bucketManager.chgmOp(chgmBucket, chgmKey, chgmMimeType);
+            string op =this.bucketManager.ChgmOp(chgmBucket, chgmKey, chgmMimeType);
             this.ChgmCmdResultTextBox.Text = op;
         }
 

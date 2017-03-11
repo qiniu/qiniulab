@@ -29,6 +29,8 @@ namespace QiniuLab
         public MainWindow()
         {
             InitializeComponent();
+            Title = "QiniuLab - v" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+
             this.WindowState = WindowState.Maximized;
         }
 
@@ -142,6 +144,7 @@ namespace QiniuLab
             {
                 this.settingsPage = new SettingsPage();
             }
+
             this.MainHostFrame.Content = this.settingsPage;
         }
 

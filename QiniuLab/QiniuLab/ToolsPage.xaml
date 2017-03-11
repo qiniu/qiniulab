@@ -36,8 +36,22 @@
                     <TextBox x:Name="DecodedStringTextBox" Grid.Row="1" Grid.Column="2" Margin="10" IsReadOnly="True"  TextWrapping="Wrap"></TextBox>
                 </Grid>
             </TabItem>
-            <TabItem Header="文件内容计算">
+            <TabItem Header="校验码计算">
                 <StackPanel Width="600" HorizontalAlignment="Left">
+                    <GroupBox Header="MD5" Margin="6">
+                        <StackPanel Orientation="Vertical" Margin="6">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="文件" Width="50" VerticalAlignment="Center" Margin="6"></TextBlock>
+                                <TextBox x:Name="TextBox_MD5SrcFileName" Width="400" VerticalAlignment="Center" Margin="6" IsReadOnly="True" TextChanged="TextBox_MD5SrcFileName_TextChanged"></TextBox>
+                                <Button x:Name="Button_OpenMD5SrcFile" Content="浏览" Width="80" VerticalAlignment="Center" Margin="6" Click="Button_OpenMD5SrcFile_Click"></Button>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Hash" Width="50" VerticalAlignment="Center" Margin="6"></TextBlock>
+                                <TextBox x:Name="TextBox_FileMD5Result" Width="400" VerticalAlignment="Center" Margin="6" IsReadOnly="True"></TextBox>
+                                <Button x:Name="Button_CalcFileMD5" Content="计算" Width="80" VerticalAlignment="Center" Margin="6" Click="Button_CalcFileMD5_Click"></Button>
+                            </StackPanel>
+                        </StackPanel>
+                    </GroupBox>
                     <GroupBox Header="QETag" Margin="6">
                         <StackPanel Orientation="Vertical" Margin="6">
                             <StackPanel Orientation="Horizontal">
@@ -64,6 +78,35 @@
                                 <TextBox x:Name="CRC32ResultTextBox" Width="400" VerticalAlignment="Center" Margin="6" IsReadOnly="True"></TextBox>
                                 <Button x:Name="CalcCRC32Button" Content="计算" Width="80" VerticalAlignment="Center" Margin="6" Click="CalcCRC32Button_Click"></Button>
                             </StackPanel>
+                        </StackPanel>
+                    </GroupBox>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="日期时间戳转换">
+                <StackPanel Width="600" HorizontalAlignment="Left">
+                    <GroupBox Header="日期转时间戳" Margin="6">
+                        <StackPanel Orientation="Vertical" Margin="6">
+                            <StackPanel Orientation="Horizontal">
+                                <DatePicker Width="100" Name="DatePicker_TargetDate"></DatePicker>
+                                <ComboBox Margin="5 0" Width="50" Name="ComboBox_TimeHour"></ComboBox>
+                                <TextBlock>时 </TextBlock>
+                                <ComboBox Margin="5 0" Width="50" Name="ComboBox_TimeMin"></ComboBox>
+                                <TextBlock>分 </TextBlock>
+                                <ComboBox Margin="5 0" Width="50" Name="ComboBox_TimeSec"></ComboBox>
+                                <TextBlock>秒</TextBlock>
+                                <Button Name="Button_DateTimeToTimestamp" Width="50" Margin="10 0" Click="Button_DateTimeToTimestamp_Click">转换</Button>
+                                <TextBlock Margin="10,0,0,0">时间戳</TextBlock>
+                                <TextBox Margin="10 0" Width="100" Name="TextBox_TargetTimestamp" IsReadOnly="True"></TextBox>
+                            </StackPanel>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="时间戳转日期" Margin="6">
+                        <StackPanel Orientation="Horizontal" Margin="6">
+                            <TextBlock>时间戳：</TextBlock>
+                            <TextBox Name="TextBox_Timestamp" Width="100"></TextBox>
+                            <Button Name="Button_TimestampToDateTime" Width="50" Margin="10 0" Click="Button_TimestampToDateTime_Click">转换</Button>
+                            <TextBlock>日期：</TextBlock>
+                            <TextBox Margin="10,0" Name="TextBox_DateTime" Width="150" IsReadOnly="True"></TextBox>
                         </StackPanel>
                     </GroupBox>
                 </StackPanel>
